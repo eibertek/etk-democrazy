@@ -20,7 +20,7 @@ const KEY = {
   SPACE: 'space'
 };
 
-const Character = (props) => {
+const Character = ({ isBouncingwith }) => {
   const [status, setStatus] = useState(IDLE);
   const [direction, setDirection] = useState(RIGHT);
   const [position, setPosition] = useState({ x: 140, y: 120 });
@@ -122,6 +122,7 @@ const Character = (props) => {
 
 
   const onKeyDown = (key: KeyboardEvent) => {
+    if(isBouncingwith) isBouncingwith(position);
     move(key.code);
     animate(key.code);
   };

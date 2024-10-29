@@ -17,14 +17,10 @@ interface ISpriteAnimatorProps {
 const SpriteAnimator = (props: ISpriteAnimatorProps) => {
     const { frameCount, sprite, width, height, fps=8, startFrame, startX, startY } = props;
     const [actualFrame, setActualFrame] = useState(startFrame || 0);
-    let prev = new Date().getTime();
 
     const move = () => {
-        const now = new Date().getTime();                
-        console.log(now-prev);
         setActualFrame((prev)=> {            
             const nextFrame =  prev < frameCount ? prev + 1 : 0;
-            console.log(nextFrame);
             return nextFrame;
         });
         setTimeout(()=> requestAnimationFrame(move), 1000 / fps );
