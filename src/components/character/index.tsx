@@ -41,16 +41,16 @@ const Character = (props) => {
       return [10, 8]
     }
     if (status === IDLE && direction === LEFT) {
-      return [9, 1]
+      return [9, 0]
     }
     if (status === IDLE && direction === RIGHT) {
-      return [11, 1]
+      return [11, 0]
     }
     if (status === IDLE && direction === UP) {
-      return [8, 1]
+      return [8, 0]
     }
     if (status === IDLE && direction === DOWN) {
-      return [10, 1]
+      return [10, 0]
     }
     return [11,8];
   };
