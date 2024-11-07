@@ -29,6 +29,7 @@
     "formik": "^2.4.6",
     "framer-motion": "^11.3.31",
     "next": "15.0.1",
+    "phaser": "^3.86.0",
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-sprite-animator": "^2.0.2",
