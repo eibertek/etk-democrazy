@@ -34,11 +34,11 @@ export class Preloader extends Scene
         this.load.image('logo', 'logo.png');
         this.load.image('star', 'star.png');
         this.load.spritesheet('milei', 'sprite_milei.png',{ frameWidth:64, frameHeight:64 });      
-        this.load.spritesheet(
-            'walls', 
-            'tiles.png',
-            { frameWidth: 18, frameHeight: 16 }
-          )  
+        this.load.image({
+            key: 'tiles',
+            url: 'map/city_1.png',
+          });
+        this.load.tilemapTiledJSON('city', 'map/city_v1.json');
     }
 
     create ()

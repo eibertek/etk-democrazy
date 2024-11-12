@@ -6,8 +6,7 @@ interface PlayerProps extends Scene {
 }
 
 export const init = (game: PlayerProps) => {
-    game.milei = game.physics.add.sprite(100,300,'milei')
-        .setCollideWorldBounds(true);
+    game.milei = game.physics.add.sprite(90,240,'milei');
     // crear una funcion que  cargue todo lo respectivo a un nivel
     game.anims.create({ key: 'milei-walk', frames: game.anims.generateFrameNumbers('milei', { start:216, end:224}),frameRate:12, repeat:-1})
     game.anims.create({ key: 'milei-walk-up', frames: game.anims.generateFrameNumbers('milei', { start:192, end:199}),frameRate:12, repeat:-1})
@@ -20,20 +19,22 @@ export const move = (game: PlayerProps) => {
 
     if(game.keys?.left.isDown){
         game.milei?.anims.play('milei-walk', true);
-        game.milei.x-= 2;
+        game.milei.setVelocityX(-100);
         game.milei.flipX =false;
     }else if(game.keys?.right.isDown){
          game.milei?.anims.play('milei-walk', true);
-        game.milei.x+=2;
+        game.milei.setVelocityX(100);
         game.milei.flipX =true;
     }else if(game.keys?.up.isDown){
         game.milei?.play('milei-walk-up', true);
-        game.milei.y-=2;
+        game.milei.setVelocityY(-100);
     }else if(game.keys?.down.isDown){
         game.milei?.play('milei-walk-down', true);
-        game.milei.y+=2;
+        game.milei.setVelocityY(100);
     }else{
         game.milei.anims.play('milei-idle', true);
+        game.milei.setVelocityX(0);
+        game.milei.setVelocityY(0);
     }
 };
 
