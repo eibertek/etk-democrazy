@@ -1,37 +1,42 @@
-import { Boot } from './scenes/Boot';
-import { GameOver } from './scenes/GameOver';
-import { Game as MainGame } from './scenes/Game';
-import { MainMenu } from './scenes/MainMenu';
+import { Boot } from './Boot';
+import { GameOver } from '@/components/Scene/GameOver';
+import { Game as MainGame } from '@/components/Scene/FirstMap';
+import { MainMenu } from '@/components/Scene/MainMenu';
+import GameUI from '@/components/Game/GameUI';
 import { AUTO, Game } from 'phaser';
-import { Preloader } from './scenes/Preloader';
+import { Preloader } from '@/components/Scene/Preloader';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
-    width: 1024,
-    height: 768,
+    width: 800,
+    height: 600,
     parent: 'game-container',
     backgroundColor: '#028af8',
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
-        }
+            debug: true,            
+        },
       },    
     scene: [
         Boot,
         Preloader,
-        MainMenu,
         MainGame,
-        GameOver
-    ]
+        GameOver,
+        GameUI,
+        MainMenu,
+    ],
+    scale: {
+//        zoom:2
+    }
 };
 
-const StartGame = (parent: string) => {
+const RootMenu = (parent: string) => {
 
     return new Game({ ...config, parent });
 
 }
 
-export default StartGame;
+export default RootMenu;

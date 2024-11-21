@@ -1,11 +1,11 @@
-import { EventBus } from '../EventBus';
+import { EventBus } from '@/components/Game/EventBus';
 import { Scene } from 'phaser';
 
 export class GameOver extends Scene
 {
-    camera: Phaser.Cameras.Scene2D.Camera;
-    background: Phaser.GameObjects.Image;
-    gameOverText : Phaser.GameObjects.Text;
+    camera?: Phaser.Cameras.Scene2D.Camera;
+    background?: Phaser.GameObjects.Image;
+    gameOverText? : Phaser.GameObjects.Text;
 
     constructor ()
     {
@@ -14,7 +14,7 @@ export class GameOver extends Scene
 
     create ()
     {
-        this.camera = this.cameras.main
+        this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0xff0000);
 
         this.background = this.add.image(512, 384, 'background');
