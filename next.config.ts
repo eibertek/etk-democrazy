@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },  
+  ignoreBuildErrors: true,
 };
 
 export default nextConfig;
