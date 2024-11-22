@@ -175,7 +175,7 @@ Phaser.GameObjects.GameObjectFactory.register('milei', function (this: Phaser.Ga
 
 	this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
 
-	sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8)
+	sprite.body?.setSize(sprite.width * 0.5, sprite.height * 0.8)
 
 	return sprite;
 });

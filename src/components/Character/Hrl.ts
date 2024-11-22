@@ -57,7 +57,7 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 			EventBus.emit('player-kills');
 		}
 	};
-	private handleTileCollision(go: Phaser.GameObjects.GameObject, tile: Phaser.Tilemaps.Tile)
+	private handleTileCollision(go: Phaser.GameObjects.GameObject)
 	{
 		if (go !== this)
 		{
@@ -108,7 +108,7 @@ Phaser.GameObjects.GameObjectFactory.register('hrl', function (this: Phaser.Game
 
 	this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
 
-	sprite.body.setSize(sprite.width * 0.5, sprite.height * 0.8)
+	sprite.body?.setSize(sprite.width * 0.5, sprite.height * 0.8)
 
 	return sprite;
 });

@@ -14,11 +14,12 @@ export class Game extends Scene
     cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     milei?: Milei;
     map?: Phaser.Tilemaps.Tilemap;
-    tileset?: any;
-    floorLayer?: any;
-    wallsLayer?: any;
-    objectsLayer?: any;
+    tileset?: Phaser.Tilemaps.Tileset | null;
+    floorLayer?: Phaser.Tilemaps.TilemapLayer | null;
+    wallsLayer?: Phaser.Tilemaps.TilemapLayer | null;
+    objectsLayer?: Phaser.Tilemaps.TilemapLayer | null;
     coins?: number;
+    lizards?: unknown;
 
     constructor ()
     {
@@ -39,11 +40,14 @@ export class Game extends Scene
 
         this.map = this.make.tilemap({ key: 'city_tiles' });
         this.tileset = this.map.addTilesetImage('city_tiles', 'firstmap');
-        this.floorLayer = this.map.createLayer('floor', this.tileset);
-        this.wallsLayer = this.map.createLayer('walls', this.tileset);
-        this.milei = this.add.milei(90,240,'milei')
+        if(this.tileset) {
+            this.floorLayer = this.map.createLayer('floor', this.tileset);
+            this.wallsLayer = this.map.createLayer('walls', this.tileset);
+            this.milei = this.add.milei(90,240,'milei');
 
-        this.objectsLayer = this.map.createLayer('objects', this.tileset)?.setDepth(200);
+            this.objectsLayer = this.map.createLayer('objects', this.tileset)?.setDepth(200);
+        }
+
 
 		this.lizards = this.physics.add.group({
 			classType: Hrl,
@@ -54,7 +58,7 @@ export class Game extends Scene
 		})
 
         const lizardsLayer = this.map.getObjectLayer('lizards')
-		lizardsLayer.objects.forEach(lizObj => {
+		lizardsLayer?.objects.forEach(lizObj => {
 			this.lizards.get(lizObj.x! + lizObj.width! * 0.5, lizObj.y! - lizObj.height! * 0.5, 'hrl')
 		});
 
@@ -90,7 +94,7 @@ export class Game extends Scene
         EventBus.emit('current-scene-ready', this);
     }
     
-    update(time: number, delta: number): void {
+    update(): void {
       this.milei?.update(this.cursors);
     }
 

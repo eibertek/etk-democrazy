@@ -15,7 +15,7 @@ interface ISpriteAnimatorProps {
 }
 
 const SpriteAnimator = (props: ISpriteAnimatorProps) => {
-    const { frameCount, sprite, width, height, fps=8, startFrame, startX, startY } = props;
+    const { frameCount, sprite, width, height, fps=8, startFrame, startY } = props;
     const [actualFrame, setActualFrame] = useState(startFrame || 0);
 
     const move = () => {

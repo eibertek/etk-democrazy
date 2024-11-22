@@ -15,7 +15,7 @@ export class MainMenu extends Scene
         super('MainMenu');        
     }
     
-    onObjectClicked = (obj) => {
+    onObjectClicked = () => {
           this.tweens.add({
             targets: this.title,
             alpha: 0,

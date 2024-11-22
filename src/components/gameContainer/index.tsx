@@ -8,7 +8,7 @@ function GameContainer()
     const phaserRef = useRef<IRefPhaserGame | null>(null);
 
     // Event emitted from the PhaserGame component
-    const currentScene = (scene: Phaser.Scene) => {}
+    const currentScene = (scene: Phaser.Scene) => scene;
 
     return (
         <div id="app">

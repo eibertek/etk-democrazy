@@ -16,7 +16,8 @@ export class GameUI extends Phaser.Scene
 
 	constructor()
 	{
-		super({ key: 'game-ui' })
+		super({ key: 'game-ui' });
+		this.legend = this.add.text(200, 530, getLegend(), textVariant(30));
 	}
 
 	create()
