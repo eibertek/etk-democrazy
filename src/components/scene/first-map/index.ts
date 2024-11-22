@@ -40,7 +40,7 @@ export class Game extends Scene
         });
 
         this.cursors = joyStick.createCursorKeys();
-        const button = this.add.circle(this.scale.width-100, this.scale.height-100, 50).setStrokeStyle(2, 0xff0000).setDepth(500)
+        this.add.circle(this.scale.width-100, this.scale.height-100, 50).setStrokeStyle(2, 0xff0000).setDepth(500)
         .setScrollFactor(0)
         .setInteractive()
         .on('pointerdown',  () => {

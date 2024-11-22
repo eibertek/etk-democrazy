@@ -2,7 +2,6 @@ import GameUI from './game-ui';
 import { AUTO, Game } from 'phaser';
 import { GameOver, MainGame, MainMenu, Preloader } from "../scene";
 import { Boot } from './boot';
-import VirtualJoyStickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
