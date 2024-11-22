@@ -1,11 +1,11 @@
-import { createCharacterAnims } from '@/components/anims/character-anims';
-// import { init, move } from '@/components/Game/character/player';
-import { EventBus } from '@/components/game/event-bus';
+import { createCharacterAnims } from '../../anims/character-anims';
+// import { init, move } from './src/components/Game/character/player';
+import { EventBus } from '../../game/event-bus';
 import { Scene } from 'phaser';
 
-import "@/components/character/milei";
-import Milei from "@/components/character/milei";
-import Hrl from '@/components/character/hrl';
+import "../../character/milei";
+import Milei from "../../character/milei";
+import Hrl from '../../character/hrl';
 
 export class Game extends Scene
 {

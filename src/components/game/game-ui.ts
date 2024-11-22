@@ -12,12 +12,11 @@ export class GameUI extends Phaser.Scene
 {
 	private life!: Phaser.GameObjects.Group
 	private frameUI?: Phaser.GameObjects.Image;
-	public legend: Phaser.GameObjects.Text;
+	public legend?: Phaser.GameObjects.Text;
 
 	constructor()
 	{
 		super({ key: 'game-ui' });
-		this.legend = this.add.text(200, 530, getLegend(), textVariant(30));
 	}
 
 	create()
