@@ -2,6 +2,7 @@ import GameUI from './game-ui';
 import { AUTO, Game } from 'phaser';
 import { GameOver, MainGame, MainMenu, Preloader } from "../scene";
 import { Boot } from './boot';
+import VirtualJoyStickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
@@ -14,7 +15,7 @@ const config: Phaser.Types.Core.GameConfig = {
         arcade: {
             debug: true,            
         },
-      },    
+      },   
     scene: [
         Boot,
         Preloader,
@@ -25,7 +26,7 @@ const config: Phaser.Types.Core.GameConfig = {
     ],
     scale: {
 //        zoom:2
-    }
+    },    
 };
 
 const RootMenu = (parent: string) => {

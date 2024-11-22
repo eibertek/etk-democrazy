@@ -26,9 +26,40 @@ export class Game extends Scene
         super('FirstMap');
     }
 
+    buildMobileControls() {
+        this.input.addPointer(2);
+        const joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+            x: 100,
+            y: 350,
+            radius: 50,
+            // base: this.add.circle(0, 0, 100, 0x888888),
+            // thumb: this.add.circle(0, 0, 50, 0xcccccc),
+            dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
+            // forceMin: 16,
+            // enable: true
+        });
+
+        this.cursors = joyStick.createCursorKeys();
+        const button = this.add.circle(this.scale.width-100, this.scale.height-100, 50).setStrokeStyle(2, 0xff0000).setDepth(500)
+        .setScrollFactor(0)
+        .setInteractive()
+        .on('pointerdown',  () => {
+            this.milei.isAttacking = true;            
+        })
+        .on('pointerup',  () => {
+            this.milei.isAttacking = false;
+        });
+    }
+
     preload()
     {
-		this.cursors = this.input.keyboard?.createCursorKeys()
+
+        if (!this.sys.game.device.input.touch) {
+            this.cursors = this.input.keyboard.createCursorKeys()
+        } else {
+            this.buildMobileControls()
+        }
+
     }
 
     create ()

@@ -42,6 +42,8 @@ export class Preloader extends Scene
             url: 'firstmap/cityv2.png',
           });
         this.load.tilemapTiledJSON('city_tiles', 'firstmap/city_1_2_tm.json');
+
+        this.load.plugin('rexvirtualjoystickplugin','https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
     }
 
     create ()

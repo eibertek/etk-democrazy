@@ -16,6 +16,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	private _coins = 0;
     private orientation = "down";
     public isAttacking = false;
+
 	get health()
 	{
 		return this._health
@@ -87,6 +88,28 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 		}
 	}
 
+	attack() {
+		this.setVelocity(0, 0);
+		if (this.orientation==="left")
+			{
+				this.anims.play('milei-fight', true);
+				this.flipX =false;
+			}
+			else if (this.orientation==="right")
+			{
+				this.anims.play('milei-fight', true);
+				this.flipX =true;
+			}
+			else if (this.orientation==="up")
+			{
+				this.anims.play('milei-fight-up', true);
+			}
+			else if (this.orientation==="down")
+			{
+				this.anims.play('milei-fight-down', true);
+			}
+	}
+
 	update(cursors: Phaser.Types.Input.Keyboard.CursorKeys)
 	{
 		if (this.healthState === HealthState.DAMAGE
@@ -108,28 +131,9 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 
         const speed = 100
 
-		if (spaceDown)
+		if (spaceDown || this.isAttacking)
 		{
-            this.setVelocity(0, 0);
-            this.isAttacking = true;
-            if (this.orientation==="left")
-                {
-                    this.anims.play('milei-fight', true);
-                    this.flipX =false;
-                }
-                else if (this.orientation==="right")
-                {
-                    this.anims.play('milei-fight', true);
-                    this.flipX =true;
-                }
-                else if (this.orientation==="up")
-                {
-                    this.anims.play('milei-fight-up', true);
-                }
-                else if (this.orientation==="down")
-                {
-                    this.anims.play('milei-fight-down', true);
-                }
+          this.attack();
 		} 
         else if (leftDown)
 		{
