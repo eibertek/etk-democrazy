@@ -3,9 +3,9 @@ import { createCharacterAnims } from '@/components/anims/character-anims';
 import { EventBus } from '@/components/game/event-bus';
 import { Scene } from 'phaser';
 
-import "@/components/character/Milei";
-import Milei from "@/components/character/Milei";
-import Hrl from '@/components/character/Hrl';
+import "@/components/character/milei";
+import Milei from "@/components/character/milei";
+import Hrl from '@/components/character/hrl';
 
 export class Game extends Scene
 {
