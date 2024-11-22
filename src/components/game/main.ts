@@ -1,10 +1,11 @@
-import { Boot } from './Boot';
-import { GameOver } from '@/components/Scene/GameOver';
-import { Game as MainGame } from '@/components/Scene/FirstMap';
-import { MainMenu } from '@/components/Scene/MainMenu';
+
+import { GameOver } from '@/components/Scene/game-over';
+import { Game as MainGame } from '@/components/Scene/first-map';
+import { MainMenu } from '@/components/Scene/main-menu';
 import GameUI from '@/components/game/GameUI';
 import { AUTO, Game } from 'phaser';
-import { Preloader } from '@/components/Scene/Preloader';
+import { Preloader } from '@/components/Scene/preloader';
+import { Boot } from '@/components/game/Boot';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig

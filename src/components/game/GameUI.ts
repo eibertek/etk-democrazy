@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import { EventBus } from './EventBus'
+import { EventBus } from './EventBus';
 
 const textVariant = (size=30) => ({
 	fontFamily: 'Arial', fontSize: size, color: '#ffffff',

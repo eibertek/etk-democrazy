@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import * as Phaser from 'phaser'
 
 const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     anims.create({ key: 'milei-walk', frames: anims.generateFrameNumbers('milei', { start:216, end:224}),frameRate:12, repeat:-1})
