@@ -1,10 +1,10 @@
 
-import { GameOver } from '@/components/Scene/game-over';
-import { Game as MainGame } from '@/components/Scene/first-map';
-import { MainMenu } from '@/components/Scene/main-menu';
+import { GameOver } from '@/components/scene/game-over';
+import { Game as MainGame } from '@/components/scene/first-map';
+import { MainMenu } from '@/components/scene/main-menu';
 import GameUI from '@/components/game/GameUI';
 import { AUTO, Game } from 'phaser';
-import { Preloader } from '@/components/Scene/preloader';
+import { Preloader } from '@/components/scene/preloader';
 import { Boot } from '@/components/game/Boot';
 
 //  Find out more information about the Game Config at:

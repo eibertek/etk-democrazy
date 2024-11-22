@@ -1,6 +1,6 @@
-import { createCharacterAnims } from '@/components/anims/CharacterAnims';
+import { createCharacterAnims } from '@/components/anims/character-anims';
 // import { init, move } from '@/components/Game/character/player';
-import { EventBus } from '@/components/game/EventBus';
+import { EventBus } from '@/components/game/event-bus';
 import { Scene } from 'phaser';
 
 import "@/components/character/Milei";
