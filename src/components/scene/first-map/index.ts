@@ -30,7 +30,7 @@ export class Game extends Scene
         this.input.addPointer(2);
         const joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
             x: 100,
-            y: 350,
+            y: 150,
             radius: 50,
             // base: this.add.circle(0, 0, 100, 0x888888),
             // thumb: this.add.circle(0, 0, 50, 0xcccccc),
@@ -40,7 +40,7 @@ export class Game extends Scene
         });
 
         this.cursors = joyStick.createCursorKeys();
-        this.add.circle(this.scale.width-100, this.scale.height-100, 50).setStrokeStyle(2, 0xff0000).setDepth(500)
+        this.add.circle(this.scale.width-100, this.scale.height-150, 50).setStrokeStyle(2, 0xff0000).setDepth(500)
         .setScrollFactor(0)
         .setInteractive()
         .on('pointerdown',  () => {
