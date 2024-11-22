@@ -1,4 +1,11 @@
-import GameContainer from "@/components/gameContainer";
+// import GameContainer from "./src/components/gameContainer";
+"use client";
+import dynamic from 'next/dynamic'
+ 
+const GameContainer = dynamic(
+  () => import("../components/game-container"),
+  { ssr: false }
+)
 
 export default function Home() {
   return (

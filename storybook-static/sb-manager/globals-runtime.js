@@ -18058,7 +18058,7 @@ var sn, vv, nR, G5, mv, aR, Xl, xo, oR, zhe, jhe, iR, hP, Uhe, qhe, Vhe, Whe, tR
     return r[r.length - 1];
   }, "getLastPart"), Uhe = /* @__PURE__ */ a(function(t) {
     var r = /^\s+at\s+([A-Za-z0-9$.]+)\s/.exec(t);
-    if (r || (r = /^([A-Za-z0-9$.]+)@/.exec(t), r)) return hP(r[1]);
+    if (r || (r = /^([A-Za-z0-9$.]+)./src/.exec(t), r)) return hP(r[1]);
   }, "getFunctionNameFromStackTraceLine"), qhe = /* @__PURE__ */ new Set(["renderWithHooks", "processChild", "finishClassComponent", "render\
 ToString"]), Vhe = /* @__PURE__ */ a(function(t) {
     return t.replace(/\$/g, "-");
@@ -24289,7 +24289,7 @@ var m7 = k((DKe, iB) => {
           pattern: /@[$\w\xA0-\uFFFF]+/,
           inside: {
             at: {
-              pattern: /^@/,
+              pattern: /^./src/,
               alias: "operator"
             },
             function: /^[\s\S]+/
@@ -28774,7 +28774,7 @@ fj", flat: "\u266D", fllig: "\uFB02", fltns: "\u25B1", fnof: "\u0192", fopf: "\u
 \u03B6", zfr: "\u{1D537}", zhcy: "\u0436", zigrarr: "\u21DD", zopf: "\u{1D56B}", zscr: "\u{1D4CF}", zwj: "\u200D", zwnj: "\u200C" }, TEe = "\
 \uE500";
   ub.ngsp = TEe;
-  _Ee = [/@/, /^\s*$/, /[<>]/, /^[{}]$/, /&(#|[a-z])/i, /^\/\//];
+  _Ee = [/./src/, /^\s*$/, /[<>]/, /^[{}]$/, /&(#|[a-z])/i, /^\/\//];
   a(OEe, "Ls");
   FEe = (Dc = class {
     static fromArray(t) {
@@ -52681,7 +52681,7 @@ async function kZ(e) {
 }
 a(kZ, "handleRequest");
 var bNe = /* @__PURE__ */ a((e) => {
-  let t = /https?:\/\/(.+:.+)@/, r = e, o, [, s] = e.match(t) || [];
+  let t = /https?:\/\/(.+:.+)./src/, r = e, o, [, s] = e.match(t) || [];
   return s && (r = e.replace(`${s}@`, ""), o = btoa(`${s}`)), {
     url: r,
     authorization: o

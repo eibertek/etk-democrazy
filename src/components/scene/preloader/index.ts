@@ -13,15 +13,15 @@ export class Preloader extends Scene
         this.add.image(512, 384, 'background');
 
         //  A simple progress bar. This is the outline of the bar.
-        this.add.rectangle(512, 384, 468, 32).setStrokeStyle(1, 0xffffff);
+        this.add.rectangle(320, 284, 285, 32).setStrokeStyle(1, 0xffffff);
 
         //  This is the progress bar itself. It will increase in size from the left based on the % of progress.
-        const bar = this.add.rectangle(512-230, 384, 4, 28, 0xffffff);
+        const bar = this.add.rectangle(180, 284, 4, 32, 0xffffff);
         //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
         this.load.on('progress', (progress: number) => {
 
             //  Update the progress bar (our bar is 464px wide, so 100% = 464px)
-            bar.width = 4 + (460 * progress);
+            bar.width = 4 + (285 * progress);
 
         });
     }
@@ -32,13 +32,16 @@ export class Preloader extends Scene
         this.load.setPath('assets');
 
         this.load.image('logo', 'logo.png');
-        this.load.image('star', 'star.png');
-        this.load.spritesheet('milei', 'sprite_milei.png',{ frameWidth:64, frameHeight:64 });      
+        this.load.image('frameui', 'frame.png');
+        this.load.spritesheet('milei', 'sprite_milei.png',{ frameWidth:64, frameHeight:64 });
+        this.load.spritesheet('superMilei', 'spriteSuperMilei.png',{ frameWidth:64, frameHeight:64 });      
+        this.load.spritesheet('larreta', 'sprite_hrl.png',{ frameWidth:64, frameHeight:64 });      
+
         this.load.image({
-            key: 'tiles',
-            url: 'map/city_1.png',
+            key: 'firstmap',
+            url: 'firstmap/cityv2.png',
           });
-        this.load.tilemapTiledJSON('city', 'map/city_v1.json');
+        this.load.tilemapTiledJSON('city_tiles', 'firstmap/city_1_2_tm.json');
     }
 
     create ()
@@ -47,6 +50,6 @@ export class Preloader extends Scene
         //  For example, you can define global animations here, so we can use them in other scenes.
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.scene.start('Game');
+        this.scene.start('MainMenu');
     }
 }
