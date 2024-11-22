@@ -32,7 +32,6 @@ export class Preloader extends Scene
         this.load.setPath('assets');
 
         this.load.image('logo', 'logo.png');
-        this.load.image('star', 'star.png', {});
         this.load.image('frameui', 'frame.png');
         this.load.spritesheet('milei', 'sprite_milei.png',{ frameWidth:64, frameHeight:64 });
         this.load.spritesheet('superMilei', 'spriteSuperMilei.png',{ frameWidth:64, frameHeight:64 });      

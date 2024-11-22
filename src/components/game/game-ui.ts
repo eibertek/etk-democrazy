@@ -21,7 +21,14 @@ export class GameUI extends Phaser.Scene
 
 	create()
 	{
-        this.frameUI = this.add.image(400, 300, 'frameui').setDepth(100);
+		const getWidthScale = (width) => {
+			return this.scale.width/width
+		};
+		const getHeightScale = (height) => {
+			return this.scale.height/height
+		};
+
+		this.frameUI = this.add.image(0, 0, 'frameui').setDepth(100).setOrigin(0).setScale(getWidthScale(800),getHeightScale(600));
 		this.add.text(200, 20, 'Coins', textVariant(20));
 		const coinsLabel = this.add.text(210, 40, '100', textVariant(30));
 
@@ -36,7 +43,7 @@ export class GameUI extends Phaser.Scene
 		EventBus.on('player-health-changed', this.handlePlayerHealthChanged, this);
 		EventBus.on('player-kills', this.handleLegendChange, this);
 
-		this.legend = this.add.text(200, 530, getLegend(), textVariant(30)).setDepth(300);
+		this.legend = this.add.text(240, this.scale.height-70, getLegend(), textVariant(30)).setDepth(300);
 
 		this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
 			EventBus.off('player-health-changed', this.handlePlayerHealthChanged, this)
