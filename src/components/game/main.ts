@@ -2,7 +2,7 @@ import { Boot } from './Boot';
 import { GameOver } from '@/components/Scene/GameOver';
 import { Game as MainGame } from '@/components/Scene/FirstMap';
 import { MainMenu } from '@/components/Scene/MainMenu';
-import GameUI from '@/components/Game/GameUI';
+import GameUI from '@/components/game/GameUI';
 import { AUTO, Game } from 'phaser';
 import { Preloader } from '@/components/Scene/Preloader';
 

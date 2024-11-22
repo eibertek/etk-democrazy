@@ -1,4 +1,4 @@
-import { EventBus } from '@/components/Game/EventBus';
+import { EventBus } from '@/components/game/EventBus';
 import { Scene } from 'phaser';
 
 export class GameOver extends Scene

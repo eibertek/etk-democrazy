@@ -1,6 +1,6 @@
 import { GameObjects, Scene } from 'phaser';
 
-import { EventBus } from '../../Game/EventBus';
+import { EventBus } from '../../game/EventBus';
 
 export class MainMenu extends Scene
 {

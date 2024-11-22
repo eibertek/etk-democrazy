@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
  
 const GameContainer = dynamic(
-  () => import("@/components/gameContainer"),
+  () => import("@/components/game-container"),
   { ssr: false }
 )
 

@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import { EventBus } from '../Game/EventBus'
+import { EventBus } from '../game/EventBus'
 
 enum Direction
 {
