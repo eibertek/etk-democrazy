@@ -1,7 +1,7 @@
-import GameUI from '@/components/game/game-ui';
+import GameUI from './game-ui';
 import { AUTO, Game } from 'phaser';
-import { GameOver, MainGame, MainMenu, Preloader } from "@/components/scene";
-import { Boot } from '@/components/game/boot';
+import { GameOver, MainGame, MainMenu, Preloader } from "../scene";
+import { Boot } from './boot';
 
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,

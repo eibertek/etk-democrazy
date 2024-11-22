@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from 'react';
-import { IRefPhaserGame, PhaserGame } from '@/components/game-container/phaser-game';
+import { IRefPhaserGame, PhaserGame } from './phaser-game';
 
 function GameContainer()
 {
