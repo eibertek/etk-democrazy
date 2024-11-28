@@ -2,17 +2,30 @@ import GameUI from './game-ui';
 import { AUTO, Game } from 'phaser';
 import { GameOver, MainGame, MainMenu, Preloader } from "../scene";
 import { Boot } from './boot';
+import StoryLine from './story-line';
 
+const getMaxScreen = () => {
+    if(window.screen.width > 1000) {
+        return {
+            width: 1000,
+            height: 768
+        };
+    }
+    return {
+        width: window.screen.width,
+        height: window.screen.height,    
+    };
+};
 const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
-    width: window.screen.width,
-    height: window.screen.height,
+    width: getMaxScreen().width,
+    height: getMaxScreen().height,
     parent: 'game-container',
     backgroundColor: '#028af8',
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,            
+            debug: false,            
         },
       },   
     scene: [
@@ -21,6 +34,7 @@ const config: Phaser.Types.Core.GameConfig = {
         MainGame,
         GameOver,
         GameUI,
+        StoryLine,
         MainMenu,
     ],
     scale: {

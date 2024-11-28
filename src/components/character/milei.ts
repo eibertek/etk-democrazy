@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser'
+import { EventBus } from '../game/event-bus';
 
 enum HealthState
 {
@@ -12,11 +13,11 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	private healthState = HealthState.IDLE
 	private damageTime = 0
 
-	private _health = 200
+	private _health = 100
 	private _coins = 0;
     private orientation = "down";
     public isAttacking = false;
-
+	private pause:boolean = false;
 	get health()
 	{
 		return this._health
@@ -29,7 +30,11 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
         this.anims.play('milei-idle', true);
 	}
 
-	handleDamage(dir: Phaser.Math.Vector2)
+	init(){
+
+	}
+	
+	handleDamage()
 	{
 		if (this._health <= 0)
 		{
@@ -41,18 +46,17 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 			return
 		}
 
-		--this._health
+		this._health-=3;
 
 		if (this._health <= 0)
 		{
 			// TODO: die
 			this.healthState = HealthState.DEAD
-			// this.anims.play('faune-faint')
+			this.anims.play('milei-faint')
 			this.setVelocity(0, 0)
 		}
 		else
 		{
-			this.setVelocity(dir.x, dir.y)
 
 			this.setTint(0xff0000)
 
@@ -90,6 +94,8 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 
 	attack() {
 		this.setVelocity(0, 0);
+		this.body.setSize(this.width+10, this.height+10, true);		
+		this.isAttacking = true;
 		if (this.orientation==="left")
 			{
 				this.anims.play('milei-fight', true);
@@ -112,6 +118,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 
 	update(cursors: Phaser.Types.Input.Keyboard.CursorKeys)
 	{
+		if(this.pause) return;
 		if (this.healthState === HealthState.DAMAGE
 			|| this.healthState === HealthState.DEAD
 		)
@@ -128,13 +135,17 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 		const upDown = cursors.up?.isDown
 		const downDown = cursors.down?.isDown
         const spaceDown = cursors.space?.isDown;
+        const spaceUp = cursors.space?.isUp;
 
         const speed = 100
-
+		if (spaceUp) {
+            this.isAttacking = false;
+			this.body.setSize(this.width-5, this.height-5, true);		
+		}
 		if (spaceDown || this.isAttacking)
 		{
           this.attack();
-		} 
+		}		
         else if (leftDown)
 		{
 			this.anims.play('milei-walk', true)

@@ -39,12 +39,12 @@
         {
          "draworder":"topdown",
          "id":5,
-         "name":"lizards",
+         "name":"larretas",
          "objects":[
                 {
                  "height":0,
                  "id":1,
-                 "name":"",
+                 "name":"larreta1",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -55,7 +55,7 @@
                 {
                  "height":0,
                  "id":2,
-                 "name":"",
+                 "name":"larreta2",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -66,7 +66,7 @@
                 {
                  "height":0,
                  "id":3,
-                 "name":"",
+                 "name":"larreta3",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -88,7 +88,7 @@
                 {
                  "height":0,
                  "id":5,
-                 "name":"",
+                 "name":"larreta4",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -97,16 +97,18 @@
                  "y":427.272727272727
                 }, 
                 {
-                 "height":0,
+                 "height":39.3939393939395,
                  "id":6,
                  "name":"lizard1",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":0,
-                 "x":181.818181818182,
-                 "y":700
+                 "width":24.2424242424242,
+                 "x":913.121212121212,
+                 "y":696.969696969697
                 }],
+         "offsetx":6.06060606060606,
+         "offsety":12.1212121212121,
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -140,6 +142,101 @@
          "y":0
         }, 
         {
+         "draworder":"topdown",
+         "id":6,
+         "name":"NPC",
+         "objects":[
+                {
+                 "height":30,
+                 "id":7,
+                 "name":"Start",
+                 "properties":[
+                        {
+                         "name":"line",
+                         "type":"string",
+                         "value":"story1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":500,
+                 "x":200,
+                 "y":333.333333333333
+                }, 
+                {
+                 "height":500,
+                 "id":8,
+                 "name":"dan1",
+                 "properties":[
+                        {
+                         "name":"line",
+                         "type":"string",
+                         "value":"dan1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":448.484848484848,
+                 "y":718.181818181818
+                }, 
+                {
+                 "height":0,
+                 "id":9,
+                 "name":"Larreta",
+                 "properties":[
+                        {
+                         "name":"line",
+                         "type":"string",
+                         "value":"larreta1"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1557.57575757576,
+                 "y":657.575757575758
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"objective points",
+         "objects":[
+                {
+                 "height":272.727272727273,
+                 "id":10,
+                 "name":"GotoSecondMap",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":78.787878787879,
+                 "x":2475.75757575758,
+                 "y":527.272727272727
+                }, 
+                {
+                 "height":42.4242424242424,
+                 "id":11,
+                 "name":"easterEgg",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":109.090909090909,
+                 "x":1148.48484848485,
+                 "y":0
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
          "data":[134, 136, 136, 136, 136, 136, 138, 326, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             198, 0, 0, 0, 0, 0, 202, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             198, 0, 0, 0, 0, 0, 202, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -167,8 +264,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":7,
+ "nextlayerid":8,
+ "nextobjectid":13,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.0",

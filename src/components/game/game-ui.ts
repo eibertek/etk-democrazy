@@ -12,7 +12,6 @@ export class GameUI extends Phaser.Scene
 {
 	private life!: Phaser.GameObjects.Group
 	private frameUI?: Phaser.GameObjects.Image;
-	public legend?: Phaser.GameObjects.Text;
 
 	constructor()
 	{
@@ -41,19 +40,13 @@ export class GameUI extends Phaser.Scene
 		this.life = this.add.rectangle(100, 50, 100, 12, 0xDDDDFF).setDepth(160);
 
 		EventBus.on('player-health-changed', this.handlePlayerHealthChanged, this);
-		EventBus.on('player-kills', this.handleLegendChange, this);
 
-		this.legend = this.add.text(240, this.scale.height-70, getLegend(), textVariant(30)).setDepth(300);
-
+		// this.add.rectangle(35,this.scale.height-215,180,180, 0xFFFFFF).setOrigin(0).setDepth(1000);
 		this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
 			EventBus.off('player-health-changed', this.handlePlayerHealthChanged, this)
 			EventBus.off('player-coins-changed')
 		})
 	}
-
-	private handleLegendChange = () => {
-		this.legend.setText(getLegend());
-	};
 
 	private handlePlayerHealthChanged(health: number)
 	{
@@ -65,6 +58,15 @@ export class GameUI extends Phaser.Scene
 			if(this.life.width < 20 ) {
 				this.life.setFillStyle(0xFF0000);
 			}
+		}else{
+			this.time.addEvent({
+				delay: 1000,
+				callback: () => {
+					this.scene.stop('story-line');
+					this.scene.start('GameOver');
+				},
+				loop: true
+			});
 		}
 	}
 }

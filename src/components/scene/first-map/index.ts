@@ -5,7 +5,7 @@ import { Scene } from 'phaser';
 
 import "../../character/milei";
 import Milei from "../../character/milei";
-import Hrl from '../../character/hrl';
+import { firstMapStoryLine } from './src/components/story-line/first-map';
 
 export class Game extends Scene
 {
@@ -19,7 +19,7 @@ export class Game extends Scene
     wallsLayer?: Phaser.Tilemaps.TilemapLayer | null;
     objectsLayer?: Phaser.Tilemaps.TilemapLayer | null;
     coins?: number;
-    lizards?: unknown;
+    enemies?: unknown;
 
     constructor ()
     {
@@ -36,7 +36,7 @@ export class Game extends Scene
             // thumb: this.add.circle(0, 0, 50, 0xcccccc),
             dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
             // forceMin: 16,
-            // enable: true
+            // enable: true            
         });
 
         this.cursors = joyStick.createCursorKeys();
@@ -54,21 +54,30 @@ export class Game extends Scene
     preload()
     {
 
-        if (!this.sys.game.device.input.touch) {
-            this.cursors = this.input.keyboard.createCursorKeys()
-        } else {
-            this.buildMobileControls()
-        }
+    }
 
+    debugMode() {
+        // const debugGraphics = this.add.graphics().setAlpha(0.7);
+        // this.wallsLayer.renderDebug(debugGraphics, {
+        //   tileColor: null,
+        //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+        // });       
+        // this.objectsLayer.renderDebug(debugGraphics, {
+        //     tileColor: null,
+        //     collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+        //   });  
+    }
+    runActions () {        
+      //  this.add.sprite(35,this.scale.height-215,'dialog_box', 1).setOrigin(0);
     }
 
     create ()
     {
-        this.scene.run('game-ui')
         this.camera = this.cameras.main;
         this.coins = 0;
 		createCharacterAnims(this.anims)
-
+        const hola = this.sound.add("hola", { loop: false });
+		hola.play();
         this.map = this.make.tilemap({ key: 'city_tiles' });
         this.tileset = this.map.addTilesetImage('city_tiles', 'firstmap');
         if(this.tileset) {
@@ -79,49 +88,23 @@ export class Game extends Scene
             this.objectsLayer = this.map.createLayer('objects', this.tileset)?.setDepth(200);
         }
 
-
-		this.lizards = this.physics.add.group({
-			classType: Hrl,
-			createCallback: (go) => {
-				const lizGo = go as Hrl
-				lizGo.body.onCollide = true
-			}
-		})
-
-        const lizardsLayer = this.map.getObjectLayer('lizards')
-		lizardsLayer?.objects.forEach(lizObj => {
-			this.lizards.get(lizObj.x! + lizObj.width! * 0.5, lizObj.y! - lizObj.height! * 0.5, 'hrl')
-		});
-
         this.physics.world.setBounds(0, 0, this.floorLayer.width, this.floorLayer.height);
-
+        this.milei.setCollideWorldBounds(true);
+        
         this.cameras.main.startFollow(this.milei);
         this.wallsLayer.setCollisionByProperty({collides: true});
         this.objectsLayer.setCollisionByProperty({collides: true});
         
-        this.physics.add.collider(this.milei, this.wallsLayer);
-        this.physics.add.collider(this.milei, this.objectsLayer);
-        
-        this.physics.add.collider(this.milei, this.lizards, (milei, lizard)=>{
-            if(this.milei.isAttacking) {
-                this.milei?.addCoins(10);
-                lizard.damage();
-                EventBus.emit('player-coins-changed', this.milei.getCoins());
-               // EventBus.emit('player-punch');
-            }else{
-                EventBus.emit('player-health-changed', 1);
-            }
-        });
 
-        // const debugGraphics = this.add.graphics().setAlpha(0.7);
-        // this.wallsLayer.renderDebug(debugGraphics, {
-        //   tileColor: null,
-        //   collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-        // });       
-        // this.objectsLayer.renderDebug(debugGraphics, {
-        //     tileColor: null,
-        //     collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-        //   });         
+        if (!this.sys.game.device.input.touch) {
+            this.cursors = this.input.keyboard.createCursorKeys();
+        } else {
+            this.buildMobileControls()
+        }
+        
+        this.scene.run('game-ui');
+        this.scene.launch('story-line', { scene: this, storyline: firstMapStoryLine(this), cursors:this.cursors});
+
         EventBus.emit('current-scene-ready', this);
     }
     

@@ -29,7 +29,7 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 	{
 		super(scene, x, y, texture, frame)
 
-		this.anims.play('larreta-idle')
+		// this.anims.play('hrl-idle')
 
 		scene.physics.world.on(Phaser.Physics.Arcade.Events.TILE_COLLIDE, this.handleTileCollision, this)
 
@@ -41,6 +41,11 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 			loop: true
 		});
 		this.health = 20;
+		this.body?.setSize(this.width, this.height,);
+	}
+
+	create() {
+		this.setCollideWorldBounds(true);
 	}
 
 	destroy(fromScene?: boolean)
@@ -52,6 +57,14 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 
 	damage = () => {
 		this.health-=1;
+		this.setTint(0xff0000);	
+		this.scene.time.addEvent({
+			delay: 500,
+			callback: () => {
+				this.setTint(0xffffff);	
+				this.direction = randomDirection(this.direction)
+			},
+		});			
 		if(this.health<0) {
 			this.destroy();
 			EventBus.emit('player-kills');
@@ -71,7 +84,7 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 	{
 		super.preUpdate(t, dt)
 
-		const speed = 50
+		const speed = !this.scene.TIME_PAUSE ? 100 : 0;
 
 		switch (this.direction)
 		{
@@ -108,7 +121,7 @@ Phaser.GameObjects.GameObjectFactory.register('hrl', function (this: Phaser.Game
 
 	this.scene.physics.world.enableBody(sprite, Phaser.Physics.Arcade.DYNAMIC_BODY)
 
-	sprite.body?.setSize(sprite.width * 0.5, sprite.height * 0.8)
+	// sprite.body?.setSize(sprite.width, sprite.height)
 
 	return sprite;
 });

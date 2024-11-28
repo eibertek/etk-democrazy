@@ -32,21 +32,27 @@ export class MainMenu extends Scene
     {
         this.background = this.add.image(512, 384, 'background');
 
-       this.add.text(300, 200, 'El juego de Milei', {
+       this.add.text(300, 300, 'El juego de Milei', {
             fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
-        }).setOrigin(0.5).setDepth(100);
+        }).setOrigin(0).setDepth(100);
 
-        this.title = this.add.text(300, 300, 'Iniciar el Juego', {
+        this.title = this.add.text(350, 400, 'Iniciar el Juego', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
-        }).setOrigin(0.5).setDepth(100);
+        }).setOrigin(0).setDepth(100);
         this.title.setInteractive();
        
+        this.add.text(100, 500, 'Te mueves con las flechitas y pegas con space.', {
+            fontFamily: 'Arial Black', fontSize: 30, color: '#ffffff',
+            stroke: '#000000', strokeThickness: 8,
+            align: 'center'
+        }).setOrigin(0).setDepth(100);
+
         this.title.on('pointerdown',this.onObjectClicked);
-        const text = this.add.text(100,400,"La inflacion es un fenomeno monetario");
+        const text = this.add.text(100,100,"La inflacion es un fenomeno monetario");
         this.tweens.add({
             targets: text,
             x: 400,
@@ -61,12 +67,6 @@ export class MainMenu extends Scene
     
     changeScene ()
     {
-        if (this.logoTween)
-        {
-            this.logoTween.stop();
-            this.logoTween = null;
-        }
-
         this.scene.start('FirstMap');
     }
 }

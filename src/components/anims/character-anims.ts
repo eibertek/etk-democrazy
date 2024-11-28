@@ -8,6 +8,8 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     anims.create({ key: 'milei-fight', frames: anims.generateFrameNumbers('milei', { start:120, end:127}),frameRate:12, repeat:-1})
     anims.create({ key: 'milei-fight-up', frames: anims.generateFrameNumbers('milei', { start:96, end:103}),frameRate:12, repeat:-1})
     anims.create({ key: 'milei-fight-down', frames: anims.generateFrameNumbers('milei', { start:144, end:151}),frameRate:12, repeat:-1})
+    anims.create({ key: 'milei-faint', frames: anims.generateFrameNumbers('milei', { start:480, end:486}),frameRate:12, repeat:0})
+
 
     //hrl
     anims.create({ key: 'hrl-walk', frames: anims.generateFrameNumbers('larreta', { start:162, end:170}),frameRate:12, repeat:-1})
