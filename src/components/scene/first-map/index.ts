@@ -5,7 +5,7 @@ import { Scene } from 'phaser';
 
 import "../../character/milei";
 import Milei from "../../character/milei";
-import { firstMapStoryLine } from './src/components/story-line/first-map';
+import { firstMapStoryLine } from '../../story-line/first-map';
 
 export class Game extends Scene
 {
