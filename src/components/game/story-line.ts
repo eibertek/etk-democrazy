@@ -30,7 +30,7 @@ export class StoryLine extends Phaser.Scene
 		super({ key: 'story-line' });
  	}
 
-    init({ scene, storyline, cursors }:{scene: Phaser.Scene, storyline: any, cursors: Phaser.Types.Input.Keyboard.CursorKeys}) {
+    init({ scene, storyline, cursors }:{scene: Phaser.Scene, storyline: unknown, cursors: Phaser.Types.Input.Keyboard.CursorKeys}) {
             this.scene = scene;
             this.storyline = storyline;
             this.cursors = cursors;

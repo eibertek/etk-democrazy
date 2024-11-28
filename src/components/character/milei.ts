@@ -1,5 +1,4 @@
 import * as Phaser from 'phaser'
-import { EventBus } from '../game/event-bus';
 
 enum HealthState
 {

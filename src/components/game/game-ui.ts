@@ -5,9 +5,6 @@ const textVariant = (size=30) => ({
 	fontFamily: 'Arial', fontSize: size, color: '#ffffff',
 });
 
-const legends = ["Peguele presidente", 'Vamo javoooo', 'toma, alien con s**a', 'UUUHHHH'];
-const getLegend = () => legends[Math.floor(Math.random()*legends.length)];
-
 export class GameUI extends Phaser.Scene
 {
 	private life!: Phaser.GameObjects.Group
