@@ -30,23 +30,31 @@ export class MainMenu extends Scene
 
     create ()
     {
-        this.background = this.add.image(512, 384, 'background');
-
-       this.add.text(300, 300, 'El juego de Milei', {
-            fontFamily: 'Arial Black', fontSize: 50, color: '#ffffff',
+       this.background = this.add.image(512, 384, 'background');
+       let originX = 300;
+       let originY = 300;
+       let maxSize = 50;
+       console.log(this.sys.game.device.input.touch);
+       if(this.sys.game.device.input.touch){
+        originX = 100;
+        originY = 100;
+        maxSize = 30;
+       }
+       this.add.text(originX, originY, 'El juego de Milei', {
+            fontFamily: 'Arial Black', fontSize: maxSize, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setOrigin(0).setDepth(100);
 
-        this.title = this.add.text(350, 400, 'Iniciar el Juego', {
+        this.title = this.add.text(originX + maxSize, originY + maxSize*2, '> Iniciar el Juego < ', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setOrigin(0).setDepth(100);
         this.title.setInteractive();
        
-        this.add.text(100, 500, 'Te mueves con las flechitas y pegas con space.', {
-            fontFamily: 'Arial Black', fontSize: 30, color: '#ffffff',
+        this.add.text(originX - maxSize*2, originY + maxSize*4, 'Te mueves con las flechitas y pegas con space.', {
+            fontFamily: 'Arial Black', fontSize: maxSize/2, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setOrigin(0).setDepth(100);
