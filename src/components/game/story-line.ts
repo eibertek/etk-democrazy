@@ -136,10 +136,10 @@ export class StoryLine extends Phaser.Scene
 
 	create()
 	{
-        let offsetY = this.sys.game.device.input.touch ? 260 : 215;
-        let offsetTextY = this.sys.game.device.input.touch ? 260 : 100;
-        let offsetX = this.sys.game.device.input.touch ? 220 : 240;
-        let fontSize = this.sys.game.device.input.touch ? 25 : 30;
+        const offsetY = this.sys.game.device.input.touch ? 260 : 215;
+        const offsetTextY = this.sys.game.device.input.touch ? 260 : 100;
+        const offsetX = this.sys.game.device.input.touch ? 220 : 240;
+        const fontSize = this.sys.game.device.input.touch ? 25 : 30;
         // image placeholder
         this.dialogBox = this.add.sprite(35,this.scale.height-offsetY,'dialog_box', 5).setOrigin(0).setDepth(300);
         this.grayOverlay = this.add.rectangle(0,0,3000, 3000,0x000000, 0.2)
