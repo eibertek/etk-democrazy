@@ -136,8 +136,12 @@ export class StoryLine extends Phaser.Scene
 
 	create()
 	{
+        let offsetY = this.sys.game.device.input.touch ? 260 : 215;
+        let offsetTextY = this.sys.game.device.input.touch ? 260 : 100;
+        let offsetX = this.sys.game.device.input.touch ? 220 : 240;
+        let fontSize = this.sys.game.device.input.touch ? 25 : 30;
         // image placeholder
-        this.dialogBox = this.add.sprite(35,this.scale.height-215,'dialog_box', 5).setOrigin(0).setDepth(300);
+        this.dialogBox = this.add.sprite(35,this.scale.height-offsetY,'dialog_box', 5).setOrigin(0).setDepth(300);
         this.grayOverlay = this.add.rectangle(0,0,3000, 3000,0x000000, 0.2)
         .setVisible(false)
         .setInteractive()
@@ -145,8 +149,8 @@ export class StoryLine extends Phaser.Scene
             this.resumeStory();
         });
         this.legend = [
-            this.add.text(240, this.scale.height-100, "", textVariant(30)).setDepth(300),
-            this.add.text(240, this.scale.height-60, "", textVariant(30)).setDepth(300)
+            this.add.text(offsetX, this.scale.height-offsetTextY, "", textVariant(fontSize)).setDepth(300),
+            this.add.text(offsetX, this.scale.height-offsetTextY+40, "", textVariant(fontSize)).setDepth(300)
         ];        
         this.initEnemies();
         EventBus.on('player-kills', this.handleLegendChange, this);
