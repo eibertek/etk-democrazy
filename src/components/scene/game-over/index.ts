@@ -16,18 +16,21 @@ export class GameOver extends Scene
     {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0xff0000);
-
+        const originX = this.sys.game.device.input.touch ? 100 : 300 ;
+        const originY = this.sys.game.device.input.touch ? 100 : 300 ;
+        const maxSize = this.sys.game.device.input.touch ? 40 : 64 ;
+ 
         this.background = this.add.image(512, 384, 'background');
         this.background.setAlpha(0.5);
 
-        this.gameOverText = this.add.text(300, 300, 'Game Over', {
-            fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
+        this.gameOverText = this.add.text(originX, originY, 'Game Over', {
+            fontFamily: 'Arial Black', fontSize: maxSize, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setOrigin(0).setDepth(100);
         
-        this.button = this.add.text(350, 400, 'Volver a Jugar', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
+        this.button = this.add.text(originX + maxSize, originY + maxSize*2, 'Volver a Jugar', {
+            fontFamily: 'Arial Black', fontSize: maxSize-10, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setOrigin(0).setDepth(100);

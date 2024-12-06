@@ -31,15 +31,9 @@ export class MainMenu extends Scene
     create ()
     {
        this.background = this.add.image(512, 384, 'background');
-       let originX = 300;
-       let originY = 300;
-       let maxSize = 50;
-       console.log(this.sys.game.device.input.touch);
-       if(this.sys.game.device.input.touch){
-        originX = 100;
-        originY = 100;
-        maxSize = 30;
-       }
+       const originX = this.sys.game.device.input.touch ? 100 : 300 ;
+       const originY = this.sys.game.device.input.touch ? 100 : 300 ;
+       const maxSize = this.sys.game.device.input.touch ? 30 : 50 ;
        this.add.text(originX, originY, 'El juego de Milei', {
             fontFamily: 'Arial Black', fontSize: maxSize, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
