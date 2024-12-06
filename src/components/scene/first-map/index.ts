@@ -28,6 +28,7 @@ export class Game extends Scene
 
     buildMobileControls() {
         this.input.addPointer(2);
+        //@ts-expect-error unknoiwn type
         const joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
             x: 100,
             y: 150,
@@ -44,10 +45,10 @@ export class Game extends Scene
         .setScrollFactor(0)
         .setInteractive()
         .on('pointerdown',  () => {
-            this.milei.isAttacking = true;            
+            this.milei!.isAttacking = true;            
         })
         .on('pointerup',  () => {
-            this.milei.isAttacking = false;
+            this.milei!.isAttacking = false;
         });
     }
 
@@ -83,24 +84,24 @@ export class Game extends Scene
         if(this.tileset) {
             this.floorLayer = this.map.createLayer('floor', this.tileset);
             this.wallsLayer = this.map.createLayer('walls', this.tileset);
+            //@ts-expect-error milei is an object 
             this.milei = this.add.milei(90,240,'milei');
 
             this.objectsLayer = this.map.createLayer('objects', this.tileset)?.setDepth(200);
         }
 
-        this.physics.world.setBounds(0, 0, this.floorLayer.width, this.floorLayer.height);
-        this.milei.setCollideWorldBounds(true);
+        this.physics.world.setBounds(0, 0, this.floorLayer!.width, this.floorLayer!.height);
+        this.milei!.setCollideWorldBounds(true);
         
-        this.cameras.main.startFollow(this.milei);
-        this.wallsLayer.setCollisionByProperty({collides: true});
-        this.objectsLayer.setCollisionByProperty({collides: true});
+        this.cameras.main.startFollow(this.milei!);
+        this.wallsLayer!.setCollisionByProperty({collides: true});
+        this.objectsLayer!.setCollisionByProperty({collides: true});
         
 
-        if (!this.sys.game.device.input.touch) {
-            this.cursors = this.input.keyboard.createCursorKeys();
-        } else {
+        if (this.sys.game.device.input.touch) {
             this.buildMobileControls()
-        }
+        } 
+        this.cursors = this.input!.keyboard!.createCursorKeys();
         
         this.scene.run('game-ui');
         this.scene.launch('story-line', { scene: this, storyline: firstMapStoryLine(this), cursors:this.cursors});
@@ -109,7 +110,7 @@ export class Game extends Scene
     }
     
     update(): void {
-      this.milei?.update(this.cursors);
+      this.milei?.update(this.cursors!);
     }
 
     changeScene ()

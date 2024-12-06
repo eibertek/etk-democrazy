@@ -83,7 +83,7 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 	preUpdate(t: number, dt: number)
 	{
 		super.preUpdate(t, dt)
-
+		//@ts-expect-error wrong type
 		const speed = !this.scene.TIME_PAUSE ? 100 : 0;
 
 		switch (this.direction)

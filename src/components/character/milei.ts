@@ -93,7 +93,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 
 	attack() {
 		this.setVelocity(0, 0);
-		this.body.setSize(this.width+10, this.height+10, true);		
+		this.body!.setSize(this.width+10, this.height+10, true);		
 		this.isAttacking = true;
 		if (this.orientation==="left")
 			{
@@ -139,7 +139,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
         const speed = 100
 		if (spaceUp) {
             this.isAttacking = false;
-			this.body.setSize(this.width-5, this.height-5, true);		
+			this.body!.setSize(this.width-5, this.height-5, true);		
 		}
 		if (spaceDown || this.isAttacking)
 		{

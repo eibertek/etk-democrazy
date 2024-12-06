@@ -1,5 +1,22 @@
 import { Scene } from "phaser";
 
+export interface IStory {
+    text: string;
+    avatar: string;
+    avatarNumber: number;
+    action?: (params: unknown)=>void;    
+};
+
+export interface IStoryEvent {
+    id: string;
+    story: IStory[];
+    actions?: (params: unknown)=>void;
+}
+
+export interface IFirstMapProps {
+    events: IStoryEvent[]
+    preload?: ()=> void,
+};
 
 export const firstMapStoryLine = (scene: Scene) => ({
     preload: () => {
@@ -68,11 +85,10 @@ export const firstMapStoryLine = (scene: Scene) => ({
                     avatarNumber: 12
                 },
             ],
-            actions: (actor) => {
-                console.log(actor);
+            actions: (actor: Phaser.GameObjects.Sprite) => {
                 actor.setAlpha(1);
                 actor.play('hrl-walk-down', true);
             }
         }
     ],
-});
+}) as IFirstMapProps;

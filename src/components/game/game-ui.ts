@@ -7,7 +7,7 @@ const textVariant = (size=30) => ({
 
 export class GameUI extends Phaser.Scene
 {
-	private life!: Phaser.GameObjects.Group
+	private life!: Phaser.GameObjects.Rectangle;
 	private frameUI?: Phaser.GameObjects.Image;
 
 	constructor()
@@ -17,10 +17,10 @@ export class GameUI extends Phaser.Scene
 
 	create()
 	{
-		const getWidthScale = (width) => {
+		const getWidthScale = (width:number) => {
 			return this.scale.width/width
 		};
-		const getHeightScale = (height) => {
+		const getHeightScale = (height: number) => {
 			return this.scale.height/height
 		};
 
@@ -40,7 +40,6 @@ export class GameUI extends Phaser.Scene
 
 		EventBus.on('player-health-changed', this.handlePlayerHealthChanged, this);
 
-		// this.add.rectangle(35,this.scale.height-215,180,180, 0xFFFFFF).setOrigin(0).setDepth(1000);
 		this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
 			EventBus.off('player-health-changed', this.handlePlayerHealthChanged, this)
 			EventBus.off('player-coins-changed')
@@ -48,7 +47,7 @@ export class GameUI extends Phaser.Scene
 	}
 
 	private handlePlayerHealthChanged(health: number)
-	{
+	{		
 		if(this.life.width > 0) {
 			this.life.width-=health;
 			if(this.life.width < 50 ) {
