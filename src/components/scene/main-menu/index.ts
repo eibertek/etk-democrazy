@@ -2,6 +2,10 @@ import { GameObjects, Scene } from 'phaser';
 
 import { EventBus } from '../../game/event-bus';
 
+const textVariant = ({size=30, color="#ffffff", stroke="#000000", strokeThickness=8}) => ({
+	fontFamily: 'Arial', fontSize: size, color, stroke, strokeThickness
+});
+
 export class MainMenu extends Scene
 {
     background?: GameObjects.Image;
@@ -31,39 +35,34 @@ export class MainMenu extends Scene
     create ()
     {
        this.background = this.add.image(512, 384, 'background');
-       const originX = this.sys.game.device.input.touch ? 100 : 300 ;
-       const originY = this.sys.game.device.input.touch ? 100 : 300 ;
-       const maxSize = this.sys.game.device.input.touch ? 30 : 50 ;
-       this.add.text(originX, originY, 'El juego de Milei', {
-            fontFamily: 'Arial Black', fontSize: maxSize, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0).setDepth(100);
+       const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+       const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
 
-        this.title = this.add.text(originX + maxSize, originY + maxSize*2, '> Iniciar el Juego < ', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0).setDepth(100);
-        this.title.setInteractive();
-       
-        this.add.text(originX - maxSize*2, originY + maxSize*4, 'Te mueves con las flechitas y pegas con space.', {
-            fontFamily: 'Arial Black', fontSize: maxSize/2, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0).setDepth(100);
+       if(this.scale.orientation.toString()==='portrait-primary') {
+           this.add.text(screenCenterX, screenCenterY, `este juego se juega`, textVariant({size:30, color:"#000000"})).setOrigin(0.5);
+           this.add.text(screenCenterX, screenCenterY+ 40, `en landscape`, textVariant({size:30, color:"#000000"})).setOrigin(0.5);
+           this.add.text(screenCenterX, screenCenterY + 80, 'voltea el celu', textVariant({size:30, color:"#000000"})).setOrigin(0.5);
+       }else{
+           this.add.text(screenCenterX, screenCenterY-50, 'El juego de Milei', textVariant({size:50, strokeThickness:8})).setOrigin(0.5).setDepth(100);
+           this.title = this.add.text(screenCenterX, screenCenterY + 20, '> Iniciar el Juego < ',  textVariant({size:40, strokeThickness:8})).setOrigin(0.5).setDepth(100);
+           this.add.text(screenCenterX, screenCenterY+80, 'Te mueves con las flechitas y pegas con space.', textVariant({size:20, strokeThickness:5})).setOrigin(0.5).setDepth(100);
+         
+         this.title.setInteractive();
+         this.title.on('pointerdown',this.onObjectClicked);
 
-        this.title.on('pointerdown',this.onObjectClicked);
-        const text = this.add.text(100,100,"La inflacion es un fenomeno monetario");
-        this.tweens.add({
-            targets: text,
-            x: 400,
-            ease: 'Power1',
-            duration: 3000,
-            onComplete: () => {
-                text.text = "SIEMPRE"
-            }
-        });
+         const text = this.add.text(screenCenterX-400, screenCenterY+100,"La inflacion es un fenomeno monetario");
+         this.tweens.add({
+             targets: text,
+             x: screenCenterX-100,
+             ease: 'Power1',
+             duration: 3000,
+             onComplete: () => {
+                 text.text = `${text.text} SIEMPRE`
+             }
+         });
+          
+       }
+
         EventBus.emit('current-scene-ready', this);
     }
     

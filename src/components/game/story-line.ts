@@ -2,8 +2,8 @@ import * as Phaser from 'phaser'
 import { EventBus } from './event-bus';
 import Hrl from '../character/hrl';
 
-const textVariant = (size=30) => ({
-	fontFamily: 'Arial', fontSize: size, color: '#ffffff',
+const textVariant = (size=30, color="#ffffff") => ({
+	fontFamily: 'Arial', fontSize: size, color,
 });
 
 const legends = ["Peguele presidente", 'Vamo javoooo', 'toma, alien con s**a', 'UUUHHHH'];
@@ -85,13 +85,21 @@ export class StoryLine extends Phaser.Scene
     initStoryline(){
         const slItemsLayer = this.scene.map.getObjectLayer('NPC');
         this.npcs = this.scene.physics.add.staticGroup();
+		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
+		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
+		if(this.scale.orientation.toString()==='portrait-primary') {
+            this.grayOverlay.setVisible(true);
+            this.add.text(screenCenterX, screenCenterY, `este juego se juega`, textVariant(30, "#000000")).setOrigin(0.5);
+            this.add.text(screenCenterX, screenCenterY+ 40, `en landscape`, textVariant(30, "#000000")).setOrigin(0.5);
+            this.add.text(screenCenterX, screenCenterY + 80, 'voltea el celu', textVariant(30, "#000000")).setOrigin(0.5);
+            this.scene.physics.world.pause();
+		}
 		slItemsLayer?.objects.forEach(slObj => {
 			const npc = this.npcs.create(slObj.x!, slObj.y!, slObj.name);
             npc.body.setSize(slObj.width, slObj.height);
             npc.setAlpha(0);
             npc.name = slObj.name;
             const event = this.storyline.events.filter(st => st.id === slObj.name).shift();
-            console.log(event);
             if(event.actions) {
                // event.actions(slObj.x!, slObj.y!);
                event.actions(npc);

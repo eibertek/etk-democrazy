@@ -24,7 +24,7 @@ export class GameUI extends Phaser.Scene
 			return this.scale.height/height
 		};
 
-        if (!this.sys.game.device.input.touch) {
+		if (!this.sys.game.device.input.touch) {
 			this.frameUI = this.add.image(0, 0, 'frameui').setDepth(100).setOrigin(0).setScale(getWidthScale(800),getHeightScale(600));		
 		}
 		this.add.text(200, 20, 'Coins', textVariant(20));
