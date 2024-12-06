@@ -39,9 +39,9 @@ export class MainMenu extends Scene
        const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
 
        if(this.scale.orientation.toString()==='portrait-primary') {
-           this.add.text(screenCenterX, screenCenterY, `este juego se juega`, textVariant({size:30, color:"#000000"})).setOrigin(0.5);
-           this.add.text(screenCenterX, screenCenterY+ 40, `en landscape`, textVariant({size:30, color:"#000000"})).setOrigin(0.5);
-           this.add.text(screenCenterX, screenCenterY + 80, 'voltea el celu', textVariant({size:30, color:"#000000"})).setOrigin(0.5);
+           this.add.text(screenCenterX, screenCenterY, `este juego se juega`, textVariant({size:30, color:"#000000", strokeThickness:1})).setOrigin(0.5);
+           this.add.text(screenCenterX, screenCenterY+ 40, `en landscape`, textVariant({size:30, color:"#000000", strokeThickness:1})).setOrigin(0.5);
+           this.add.text(screenCenterX, screenCenterY + 80, 'voltea el celu', textVariant({size:30, color:"#000000", strokeThickness:1})).setOrigin(0.5);
        }else{
            this.add.text(screenCenterX, screenCenterY-50, 'El juego de Milei', textVariant({size:50, strokeThickness:8})).setOrigin(0.5).setDepth(100);
            this.title = this.add.text(screenCenterX, screenCenterY + 20, '> Iniciar el Juego < ',  textVariant({size:40, strokeThickness:8})).setOrigin(0.5).setDepth(100);
