@@ -65,7 +65,7 @@ export class StoryLine extends Phaser.Scene
 
             scene.physics.add.overlap(scene.milei, this.enemies, (milei, larreta)=>{
                 if(this.sys.game.device.input.touch) {
-                    const bottomY = this.cameras.main.worldView.y + this.cameras.main.height - 120;
+                    const bottomY = this.cameras.main.worldView.y + this.cameras.main.height - 140;
                     this.dialogBox!.setScale(0.5, 0.5).setY(bottomY);                    
                     this.legend![0].setY(bottomY).setX(140);
                     this.legend![1].setY(bottomY+40).setX(140);                     
