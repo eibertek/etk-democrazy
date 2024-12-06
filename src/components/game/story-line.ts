@@ -65,11 +65,15 @@ export class StoryLine extends Phaser.Scene
 
             scene.physics.add.overlap(scene.milei, this.enemies, (milei, larreta)=>{
                 if(this.sys.game.device.input.touch) {
-                    const bottomY = this.cameras.main.worldView.y + this.cameras.main.height - 140;
+                    const bottomY = this.cameras.main.worldView.y + this.cameras.main.height - 150;
                     this.dialogBox!.setScale(0.5, 0.5).setY(bottomY);                    
                     this.legend![0].setY(bottomY).setX(140);
                     this.legend![1].setY(bottomY+40).setX(140);                     
                 }
+                if(!this.dialogBox!.visible) {
+                    this.dialogBox!.setVisible(true);
+                    this.legend?.forEach(legend => legend.setVisible(true));    
+                }                
                 if((milei as Milei).isAttacking) {
                     scene.milei?.addCoins(10);
                     (larreta as Hrl).damage();
@@ -78,10 +82,15 @@ export class StoryLine extends Phaser.Scene
                     EventBus.emit('player-coins-changed', (milei as Milei).getCoins());
                    // EventBus.emit('player-punch');
                 }else{
-                    EventBus.emit('player-health-changed', 1);
+                    EventBus.emit('player-health-changed', 1);                    
                     this.dialogBox!.setFrame(2);
                     (milei as Milei).handleDamage();
+                    setTimeout(()=>{
+                        this.dialogBox!.setVisible(false);
+                        this.legend?.forEach(legend => legend.setVisible(false));
+                    }, 2000);                    
                 }
+
             });
     
         }
@@ -135,6 +144,10 @@ export class StoryLine extends Phaser.Scene
     }
 
     runStory(){
+        if(!this.dialogBox!.visible) {
+            this.dialogBox!.setVisible(true);
+            this.legend?.forEach(legend => legend.setVisible(true));    
+        }
         if(this.sys.game.device.input.touch) {
             const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2 - 90;
             this.dialogBox!.setScale(1, 1).setY(screenCenterY);
