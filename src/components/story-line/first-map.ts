@@ -10,6 +10,7 @@ export interface IStory {
 export interface IStoryEvent {
     id: string;
     story: IStory[];
+    repeatable: boolean;
     actions?: (params: unknown)=>void;
 }
 
@@ -89,6 +90,24 @@ export const firstMapStoryLine = (scene: Scene) => ({
                 actor.setAlpha(1);
                 actor.play('hrl-walk-down', true);
             }
-        }
+        },
+        {
+            id:'GotoSecondMap',
+            repeatable: true,
+            story:[
+                {
+                    text: "Javo, te felicito fue un excelente nivel",
+                    avatar: "dialog_box",
+                    avatarNumber: 0
+                },
+                {
+                    text: "Gracias gordo, todavia queda mas",
+                    avatar: "dialog_box",
+                    avatarNumber: 11
+                },
+            ],
+            actions: () => {
+            }
+        }        
     ],
 }) as IFirstMapProps;

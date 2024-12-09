@@ -105,6 +105,7 @@ export class StoryLine extends Phaser.Scene
 
     initStoryline(){
         const slItemsLayer = this.currentScene!.map!.getObjectLayer('NPC');
+        const slObjectivesLayer = this.currentScene!.map!.getObjectLayer('objective points');
         this.npcs = this.currentScene!.physics.add.staticGroup();
 		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
@@ -127,14 +128,37 @@ export class StoryLine extends Phaser.Scene
             }
 		});
 
+        slObjectivesLayer?.objects.forEach(slObj => {
+			const npc = this.npcs!.create(slObj.x!, slObj.y!, slObj.name);
+            npc.body.setSize(slObj.width, slObj.height);
+            npc.setAlpha(0);
+            npc.name = slObj.name;
+            const event = this.storyline!.events.filter(st => st.id === slObj.name).shift();
+            if(event && event!.actions) {
+               // event.actions(slObj.x!, slObj.y!);
+               event!.actions(npc);
+            }
+		});
+
         if(this.currentScene?.milei) {
-            this.currentScene!.physics.add.overlap(this.currentScene.milei, this.npcs, (milei, npc)=>{
+            this.currentScene!.physics.add.overlap(this.currentScene.milei, this.npcs, (milei, npc)=>{   
+                const repeatable = this.activeNPC?.getData("repeatable") || false;
+                if(repeatable && this.activeNPC?.getData("status")===1) {
+                    setTimeout(()=>{
+                        this.activeNPC?.setData("status", 0);    
+                    }, 5000);
+                    return;
+                };
                 this.grayOverlay!.setVisible(true);
                 this.currentScene!.physics.world.pause();
-                //@ts-expect-error activeNpc
-                this.activeNPC = npc;
                 //@ts-expect-error name
                 const event = this.storyline!.events.filter(st => st.id === npc.name).shift();
+                if(!this.activeNPC) {
+                    //@ts-expect-error activeNpc
+                    this.activeNPC = npc;
+                    this.activeNPC?.setData("status", 0);                
+                    this.activeNPC?.setData("repeatable", !!event!.repeatable || false);
+                }
                 this.activeStory = event!.story;
                 this.activeStoryIdx = 0;
                 this.runStory();
@@ -167,7 +191,13 @@ export class StoryLine extends Phaser.Scene
             this.activeStoryIdx++;
             this.runStory();
         }else{
-            this.activeNPC!.destroy();
+            const repeatable = this.activeNPC?.getData("repeatable") || false;
+            if(!repeatable){
+                this.activeNPC!.destroy();
+                this.activeNPC = undefined;
+            }else{
+                this.activeNPC?.setData("status", 1);
+            }
             this.activeStory = [];
             this.activeStoryIdx = 0;
             this.grayOverlay!.setVisible(false);

@@ -99,10 +99,10 @@ export class Game extends Scene
         
 
         if (this.sys.game.device.input.touch) {
-            this.buildMobileControls()
+//            this.buildMobileControls()
         } else {
-            this.cursors = this.input!.keyboard!.createCursorKeys();
         }
+        this.cursors = this.input!.keyboard!.createCursorKeys();
         
         this.scene.run('game-ui');
         this.scene.launch('story-line', { scene: this, storyline: firstMapStoryLine(this), cursors:this.cursors});
