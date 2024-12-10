@@ -47,7 +47,7 @@ export class StoryLine extends Phaser.Scene
 
     checkObjective = (checkpoints?: string[]) => {
         console.log(this.enemies?.children.size);
-        console.log(this.objectives.checkpoints);
+        console.log(this.objectives.checkpoints, checkpoints);
     }
 
     init({ scene, storyline, cursors }:{scene: Game, storyline: IFirstMapProps, cursors: Phaser.Types.Input.Keyboard.CursorKeys}) {
@@ -177,7 +177,6 @@ export class StoryLine extends Phaser.Scene
                 this.activeNPC?.setData("repeatable", !!event!.repeatable || false);
                 this.checkObjective();
                 if(event!.onPending!) {
-                    console.log(event!.objectives);
                     this.activeStory = event!.onPending!.story;
                     this.activeAction = event!.onPending!.action;
                 }else{
