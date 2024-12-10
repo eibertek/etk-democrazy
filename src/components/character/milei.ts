@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser'
+import { EventBus } from '../game/event-bus';
 
 enum HealthState
 {
@@ -12,7 +13,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	private healthState = HealthState.IDLE
 	private damageTime = 0
 
-	private _health = 100
+	private _health = 150
 	private _coins = 0;
     private orientation = "down";
     public isAttacking = false;
@@ -33,7 +34,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 
 	}
 	
-	handleDamage()
+	handleDamage(damage)
 	{
 		if (this._health <= 0)
 		{
@@ -45,7 +46,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 			return
 		}
 
-		this._health-=3;
+		this._health-=damage;
 
 		if (this._health <= 0)
 		{
@@ -62,6 +63,15 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 			this.healthState = HealthState.DAMAGE
 			this.damageTime = 0
 		}
+	}
+
+	refillLife = () => {
+		this._health = 150;
+		EventBus.emit('player-health-changed', this._health);                    
+	}
+
+	getHealth = () => {
+		return this._health;
 	}
 
 	addCoins = (coins:number) => {
@@ -136,7 +146,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
         const spaceDown = cursors.space?.isDown;
         const spaceUp = cursors.space?.isUp;
 
-        const speed = 100
+        const speed = 400
 		if (spaceUp) {
             this.isAttacking = false;
 			this.body!.setSize(this.width-5, this.height-5, true);		

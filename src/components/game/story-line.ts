@@ -3,7 +3,7 @@ import { EventBus } from './event-bus';
 import Hrl from '../character/hrl';
 import { Game } from '../scene/first-map';
 import Milei from '../character/milei';
-import { IFirstMapProps, IStory } from '../story-line/first-map';
+import { IFirstMapProps, IObjectives, IStory } from '../story-line/first-map';
 
 const textVariant = (size=30, color="#ffffff") => ({
 	fontFamily: 'Arial', fontSize: size, color,
@@ -27,11 +27,28 @@ export class StoryLine extends Phaser.Scene
     private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     private storyline?: IFirstMapProps;
     private activeStory?: IStory[];
+    private activeAction?: ()=>void;
     private activeStoryIdx:number = -1;
+    private objectives:IObjectives = {
+        allEnemyDown: false,
+        checkpoints: [],
+    };
+
 	constructor()
 	{
 		super({ key: 'story-line' });
  	}
+
+    addCheckpoint = (checkpoint:string) => {
+        if(this.objectives.checkpoints?.indexOf(checkpoint)==-1) {
+            this.objectives.checkpoints.push(checkpoint);
+        }
+    };
+
+    checkObjective = (checkpoints?: string[]) => {
+        console.log(this.enemies?.children.size);
+        console.log(this.objectives.checkpoints);
+    }
 
     init({ scene, storyline, cursors }:{scene: Game, storyline: IFirstMapProps, cursors: Phaser.Types.Input.Keyboard.CursorKeys}) {
             this.currentScene = scene;
@@ -82,9 +99,9 @@ export class StoryLine extends Phaser.Scene
                     EventBus.emit('player-coins-changed', (milei as Milei).getCoins());
                    // EventBus.emit('player-punch');
                 }else{
-                    EventBus.emit('player-health-changed', 1);                    
-                    this.dialogBox!.setFrame(2);
-                    (milei as Milei).handleDamage();
+                    if(this.dialogBox?.frame !== 2) this.dialogBox!.setFrame(2);
+                    (milei as Milei).handleDamage(Math.round(Math.random() *10,0));
+                    EventBus.emit('player-health-changed', milei.getHealth());                    
                     setTimeout(()=>{
                         this.dialogBox!.setVisible(false);
                         this.legend?.forEach(legend => legend.setVisible(false));
@@ -153,13 +170,19 @@ export class StoryLine extends Phaser.Scene
                 this.currentScene!.physics.world.pause();
                 //@ts-expect-error name
                 const event = this.storyline!.events.filter(st => st.id === npc.name).shift();
-                if(!this.activeNPC) {
-                    //@ts-expect-error activeNpc
-                    this.activeNPC = npc;
-                    this.activeNPC?.setData("status", 0);                
-                    this.activeNPC?.setData("repeatable", !!event!.repeatable || false);
-                }
-                this.activeStory = event!.story;
+                if(!event) return;
+                //@ts-expect-error activeNpc
+                this.activeNPC = npc;
+                this.activeNPC?.setData("status", 0);                
+                this.activeNPC?.setData("repeatable", !!event!.repeatable || false);
+                this.checkObjective();
+                if(event!.onPending!) {
+                    console.log(event!.objectives);
+                    this.activeStory = event!.onPending!.story;
+                    this.activeAction = event!.onPending!.action;
+                }else{
+                    this.activeStory = event!.story;
+                };
                 this.activeStoryIdx = 0;
                 this.runStory();
             });
@@ -184,6 +207,12 @@ export class StoryLine extends Phaser.Scene
         this.legend![0].setText(legend.slice(0,5).join(" "));
         this.legend![1].setText(legend.slice(5).join(" "));
         this.dialogBox!.setFrame(story.avatarNumber);
+        try {
+            if(this.activeAction) this.activeAction();
+            if(story?.action) story?.action();
+        }catch(e){
+            console.log(e);
+        }
     }
 
     resumeStory(){
@@ -192,7 +221,9 @@ export class StoryLine extends Phaser.Scene
             this.runStory();
         }else{
             const repeatable = this.activeNPC?.getData("repeatable") || false;
+            console.log(repeatable, this.activeNPC);
             if(!repeatable){
+                this.addCheckpoint(this.activeNPC!.name);
                 this.activeNPC!.destroy();
                 this.activeNPC = undefined;
             }else{

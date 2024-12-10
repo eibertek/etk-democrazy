@@ -13,7 +13,7 @@ export class GameOver extends Scene
     }
 
     create ()
-    {
+    {        
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0xff0000);
         const originX = this.sys.game.device.input.touch ? 100 : 300 ;

@@ -27,16 +27,16 @@ export class GameUI extends Phaser.Scene
 		if (!this.sys.game.device.input.touch) {
 			this.frameUI = this.add.image(0, 0, 'frameui').setDepth(100).setOrigin(0).setScale(getWidthScale(800),getHeightScale(600));		
 		}
-		this.add.text(200, 20, 'Coins', textVariant(20));
-		const coinsLabel = this.add.text(210, 40, '100', textVariant(30));
+		this.add.text(400, 20, 'Coins', textVariant(20));
+		const coinsLabel = this.add.text(410, 40, '100', textVariant(30));
 
 		EventBus.on('player-coins-changed', (coins: number) => {
 			coinsLabel.text = coins.toLocaleString()
 		})
 
 		this.add.text(40, 20, 'Life', textVariant(20));
-		this.add.rectangle(100, 50, 100, 12).setStrokeStyle(1, 0xffffff).setDepth(150);
-		this.life = this.add.rectangle(100, 50, 100, 12, 0xDDDDFF).setDepth(160);
+		this.add.rectangle(200, 50, 150, 12).setStrokeStyle(1, 0xffffff).setDepth(150);
+		this.life = this.add.rectangle(200, 50, 150, 12, 0xDDDDFF).setDepth(160);
 
 		EventBus.on('player-health-changed', this.handlePlayerHealthChanged, this);
 
@@ -48,12 +48,14 @@ export class GameUI extends Phaser.Scene
 
 	private handlePlayerHealthChanged(health: number)
 	{		
-		if(this.life.width > 0) {
-			this.life.width-=health;
-			if(this.life.width < 50 ) {
+
+		if(health > 0) {
+			this.life.width = health;
+			this.life.setFillStyle(0xFFFFFF);
+			if(this.life.width < 70 ) {
 				this.life.setFillStyle(0xFFFF00);
 			}
-			if(this.life.width < 20 ) {
+			if(this.life.width < 30 ) {
 				this.life.setFillStyle(0xFF0000);
 			}
 		}else{
