@@ -16,17 +16,19 @@ export interface IStoryEvent {
     story: IStory[];
     repeatable: boolean;
     objectives?: {
+        allEnemyDown?: boolean,
+        checkpoints?: string[],
         [item:string]:unknown
     },
     onFulFill?: {
         story?: IStory[];
-        action: (param?:()=>void)=>void;
+        action?: (param?:()=>void | unknown)=>void;
     },
     onPending?: {
         story?: IStory[];
-        action: (param?:()=>void)=>void;
+        action?: (param?:()=>void | unknown)=>void;
     },    
-    actions?: (params: unknown)=>void;
+    actions?: (params?: ()=>void | unknown)=>void;
 }
 
 export interface IFirstMapProps {
@@ -45,14 +47,7 @@ export const firstMapStoryLine = (scene: Scene) => ({
                     text: "Bien, creo que me pondre en marcha",
                     avatar: "dialog_box",
                     avatarNumber: 10,
-                    action: (time: number) => {
-                        return scene.add.timeline({
-                            at: time,
-                            run: () => {
-                                scene.add.circle(10, 10, 30, 0xFFDDDD);
-                            }
-                        });
-                    },
+                    action: () => {},
                 },
                 {
                     text: "Cuidado Javo, hay varios aliens en tu camino",
@@ -99,6 +94,16 @@ export const firstMapStoryLine = (scene: Scene) => ({
                     avatar: "dialog_box",
                     avatarNumber: 12
                 },
+                {
+                    text: "Tengo que preguntarle a la consultora ahora vuelvo",
+                    avatar: "dialog_box",
+                    avatarNumber: 21
+                },
+                {
+                    text: "como le roban plata jaja",
+                    avatar: "dialog_box",
+                    avatarNumber: 11
+                },
             ],
             actions: (actor: Phaser.GameObjects.Sprite) => {
                 actor.setAlpha(1);
@@ -124,11 +129,21 @@ export const firstMapStoryLine = (scene: Scene) => ({
                         avatar: "dialog_box",
                         avatarNumber: 11
                     },
+                    {
+                        text: "Gracias por jugar",
+                        avatar: "dialog_box",
+                        avatarNumber: 13,
+                        action: (callback = () => { }) => {
+                            if (callback) callback();
+                            setTimeout(()=>{
+                                scene.scene.stop('first-map');
+                                scene.scene.stop('game-ui');
+                                scene.scene.start('MainMenu');    
+                            }, 2000);
+                        }
+        
+                    }
                 ],
-                action: (callback = () => { }) => {
-                    if (callback) callback();
-                    scene.scene.start('game-ui');
-                }
             },
             onPending: {
                 story: [
@@ -141,11 +156,6 @@ export const firstMapStoryLine = (scene: Scene) => ({
                         text: "Estoy en eso",
                         avatar: "dialog_box",
                         avatarNumber: 11,
-                        action: (callback = () => { }) => {                    
-                            if (callback) callback();
-                            console.log(scene.milei);
-                            scene.milei.refillLife();
-                        }        
                     },
                 ],
                 action: (callback = () => { }) => {                    
@@ -154,6 +164,67 @@ export const firstMapStoryLine = (scene: Scene) => ({
             },
             actions: () => {
             }
-        }
+        },
+        {
+            id: 'easterEgg',
+            repeatable: true,
+            objectives: {
+                allEnemyDown: false,
+                checkpoints: ["Larreta"]
+            },
+            onFulFill: {
+                story: [
+                    {
+                        text: "Mario, tu princesa esta en el otro castillo",
+                        avatar: "dialog_box",
+                        avatarNumber: 3
+                    },
+                    {
+                        text: "Morcilla!, este es otro juego",
+                        avatar: "dialog_box",
+                        avatarNumber: 11
+                    },
+                    {
+                        text: "Verdadero, anda al final del nivel asi terminas el juego",
+                        avatar: "dialog_box",
+                        avatarNumber: 3
+                    },
+                ],
+            },
+            onPending: {
+                story: [
+                    {
+                        text: "hola Javo, Lo viste a Larreta?",
+                        avatar: "dialog_box",
+                        avatarNumber: 3
+                    },
+                    {
+                        text: "Me dijo Dan, pero no lo vi",
+                        avatar: "dialog_box",
+                        avatarNumber: 11,
+                    },
+                    {
+                        text: "Morcilla, no hagas perder tiempo al presidente",
+                        avatar: "dialog_box",
+                        avatarNumber: 0,
+                    },
+                    {
+                        text: "Mala mia",
+                        avatar: "dialog_box",
+                        avatarNumber: 3,
+                        action: (callback = () => { }) => {                    
+                            if (callback) callback();
+                            //@ts-expect-error nomilei
+                            scene.milei.refillLife();
+                        }
+                    },                    
+                ],
+                action: (callback = () => { }) => {                    
+                    if (callback) callback();
+                }
+            },
+            actions: () => {
+            }
+        }        
     ],
 }) as unknown as IFirstMapProps;

@@ -50,6 +50,7 @@ export class Preloader extends Scene
         this.load.audio("punch", ["punch.wav"]);
         this.load.audio("hola", ["leon1.wav"]);
         this.load.audio("viva", ["vivalibertad.wav"]);
+        this.load.audio("bmg_1", ["game_misa.mp3"]);
         this.load.plugin('rexvirtualjoystickplugin','https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
     }
 

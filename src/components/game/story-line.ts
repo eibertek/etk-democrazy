@@ -3,7 +3,7 @@ import { EventBus } from './event-bus';
 import Hrl from '../character/hrl';
 import { Game } from '../scene/first-map';
 import Milei from '../character/milei';
-import { IFirstMapProps, IObjectives, IStory } from '../story-line/first-map';
+import { IFirstMapProps, IObjectives, IStory, IStoryEvent } from '../story-line/first-map';
 
 const textVariant = (size=30, color="#ffffff") => ({
 	fontFamily: 'Arial', fontSize: size, color,
@@ -27,7 +27,7 @@ export class StoryLine extends Phaser.Scene
     private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
     private storyline?: IFirstMapProps;
     private activeStory?: IStory[];
-    private activeAction?: ()=>void;
+    private activeAction?: (params?: ()=>void | unknown)=>void;
     private activeStoryIdx:number = -1;
     private objectives:IObjectives = {
         allEnemyDown: false,
@@ -44,10 +44,26 @@ export class StoryLine extends Phaser.Scene
             this.objectives.checkpoints.push(checkpoint);
         }
     };
+    clearAllSettings = () => {
+        this.objectives = {
+            allEnemyDown: false,
+            checkpoints: [],
+        };
+        this.activeStoryIdx = -1;
+        this.activeStory = undefined;
+        this.activeAction = undefined;
+    }
 
-    checkObjective = (checkpoints?: string[]) => {
-        console.log(this.enemies?.children.size);
-        console.log(this.objectives.checkpoints, checkpoints);
+    checkObjectives = (objectives?: IStoryEvent["objectives"]) => {
+        if(!objectives) return;
+        const objectviesAccomplished: IStoryEvent["objectives"] = {};
+        if(objectives.allEnemyDown === true) {
+            objectviesAccomplished.allEnemyDown = this.enemies?.children.size === 0;
+        };
+        objectviesAccomplished.allCheckpoints = objectives!.checkpoints!.every(obj => this.objectives.checkpoints!.includes(obj));
+        objectviesAccomplished.all = Object.values(objectviesAccomplished).every((check) => check);
+        console.log(objectviesAccomplished);
+        return objectviesAccomplished;
     }
 
     init({ scene, storyline, cursors }:{scene: Game, storyline: IFirstMapProps, cursors: Phaser.Types.Input.Keyboard.CursorKeys}) {
@@ -69,8 +85,8 @@ export class StoryLine extends Phaser.Scene
 			}
 		})
 
-        const larretasLayer = scene.map!.getObjectLayer('larretas')
-		larretasLayer?.objects.forEach(lizObj => {
+        const enemiesLayer = scene.map!.getObjectLayer('enemies')
+		enemiesLayer?.objects.slice(0,1).forEach(lizObj => {
 			this.enemies!.create(lizObj.x!, lizObj.y!, 'hrl');         
 		});
         if(scene.milei && scene.wallsLayer && scene.objectsLayer ) {
@@ -99,8 +115,10 @@ export class StoryLine extends Phaser.Scene
                     EventBus.emit('player-coins-changed', (milei as Milei).getCoins());
                    // EventBus.emit('player-punch');
                 }else{
+                    //@ts-expect-error nomilei
                     if(this.dialogBox?.frame !== 2) this.dialogBox!.setFrame(2);
-                    (milei as Milei).handleDamage(Math.round(Math.random() *10,0));
+                    (milei as Milei).handleDamage(Math.round(Math.random() *10));
+                    //@ts-expect-error nomilei
                     EventBus.emit('player-health-changed', milei.getHealth());                    
                     setTimeout(()=>{
                         this.dialogBox!.setVisible(false);
@@ -175,13 +193,14 @@ export class StoryLine extends Phaser.Scene
                 this.activeNPC = npc;
                 this.activeNPC?.setData("status", 0);                
                 this.activeNPC?.setData("repeatable", !!event!.repeatable || false);
-                this.checkObjective();
-                if(event!.onPending!) {
-                    this.activeStory = event!.onPending!.story;
-                    this.activeAction = event!.onPending!.action;
-                }else{
+                if(!event.onPending && !event.onFulFill) {
                     this.activeStory = event!.story;
-                };
+                }else{
+                    const objectives = this.checkObjectives(event!.objectives)!.all;
+                    const nextEvent = objectives ? event!.onFulFill! : event!.onPending!; 
+                    this.activeStory = nextEvent.story;
+                    this.activeAction = nextEvent.action;    
+                }
                 this.activeStoryIdx = 0;
                 this.runStory();
             });
@@ -220,7 +239,6 @@ export class StoryLine extends Phaser.Scene
             this.runStory();
         }else{
             const repeatable = this.activeNPC?.getData("repeatable") || false;
-            console.log(repeatable, this.activeNPC);
             if(!repeatable){
                 this.addCheckpoint(this.activeNPC!.name);
                 this.activeNPC!.destroy();
@@ -263,7 +281,9 @@ export class StoryLine extends Phaser.Scene
 
         // this.add.rectangle(35,this.scale.height-215,180,180, 0xFFFFFF).setOrigin(0).setDepth(1000);
 		this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-			EventBus.off('player-kills')
+			EventBus.off('player-kills');
+            EventBus.off('run-story');
+            this.clearAllSettings();
 		})
     }
 

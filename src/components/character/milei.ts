@@ -34,7 +34,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 
 	}
 	
-	handleDamage(damage)
+	handleDamage(damage: number)
 	{
 		if (this._health <= 0)
 		{
