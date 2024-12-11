@@ -1,6 +1,6 @@
 import GameUI from './game-ui';
 import { AUTO, Game } from 'phaser';
-import { GameOver, MainGame, MainMenu, Preloader } from "../scene";
+import { GameOver, MainGame, MainMenu, Preloader, Credits } from "../scene";
 import { Boot } from './boot';
 import StoryLine from './story-line';
 
@@ -36,6 +36,7 @@ const config: Phaser.Types.Core.GameConfig = {
         GameUI,
         StoryLine,
         MainMenu,
+        Credits,
     ],
     scale: {
 //        zoom:2

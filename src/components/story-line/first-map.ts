@@ -168,6 +168,10 @@ export const firstMapStoryLine = (scene: Scene) => ({
         {
             id: 'easterEgg',
             repeatable: true,
+            actions: (actor: Phaser.GameObjects.Sprite) => {
+                actor.setAlpha(1);
+                actor.play('morcilla-walk-down', true);
+            },
             objectives: {
                 allEnemyDown: false,
                 checkpoints: ["Larreta"]
@@ -222,8 +226,6 @@ export const firstMapStoryLine = (scene: Scene) => ({
                 action: (callback = () => { }) => {                    
                     if (callback) callback();
                 }
-            },
-            actions: () => {
             }
         }        
     ],

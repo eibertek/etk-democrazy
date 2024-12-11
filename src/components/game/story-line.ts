@@ -62,7 +62,6 @@ export class StoryLine extends Phaser.Scene
         };
         objectviesAccomplished.allCheckpoints = objectives!.checkpoints!.every(obj => this.objectives.checkpoints!.includes(obj));
         objectviesAccomplished.all = Object.values(objectviesAccomplished).every((check) => check);
-        console.log(objectviesAccomplished);
         return objectviesAccomplished;
     }
 
@@ -86,7 +85,7 @@ export class StoryLine extends Phaser.Scene
 		})
 
         const enemiesLayer = scene.map!.getObjectLayer('enemies')
-		enemiesLayer?.objects.slice(0,1).forEach(lizObj => {
+		enemiesLayer?.objects.forEach(lizObj => {
 			this.enemies!.create(lizObj.x!, lizObj.y!, 'hrl');         
 		});
         if(scene.milei && scene.wallsLayer && scene.objectsLayer ) {
@@ -171,6 +170,7 @@ export class StoryLine extends Phaser.Scene
             const event = this.storyline!.events.filter(st => st.id === slObj.name).shift();
             if(event && event!.actions) {
                // event.actions(slObj.x!, slObj.y!);
+               console.log(npc, event);
                event!.actions(npc);
             }
 		});

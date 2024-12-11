@@ -19,6 +19,8 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     anims.create({ key: 'hrl-fight', frames: anims.generateFrameNumbers('larreta', { start:120, end:127}),frameRate:12, repeat:-1})
     anims.create({ key: 'hrl-fight-up', frames: anims.generateFrameNumbers('larreta', { start:96, end:103}),frameRate:12, repeat:-1})
     anims.create({ key: 'hrl-fight-down', frames: anims.generateFrameNumbers('larreta', { start:144, end:151}),frameRate:12, repeat:-1})
+
+    anims.create({ key: 'morcilla-walk-down', frames: anims.generateFrameNumbers('morcilla', { start:26, end:32}),frameRate:9, repeat:-1})
 }
 
 export {

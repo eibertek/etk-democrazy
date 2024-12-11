@@ -1,14 +1,3 @@
-# Etk Democrazy
-
-## Milei Game
-
-Creator: Mariano Eiberman 
-
-Twitter: https://x.com/EibermanMariano
-
-Linkedin: https://www.linkedin.com/in/mariano-eiberman-592a5443/
-
-Sprite Credits:
 Authors: bluecarrot16, Benjamin K. Smith (BenCreating), Evert, Eliza Wyatt (ElizaWy), TheraHedwig, MuffinElZangano, Durrani, Johannes Sj?lund (wulax), Stephen Challener (Redshrike), JaidynReiman, Thane Brimhall (pennomi), Johannes Sjölund (wulax), Pierre Vigier (pvigier)
 
 - body/bodies/male/light.png: by bluecarrot16, Benjamin K. Smith (BenCreating), Evert, Eliza Wyatt (ElizaWy), TheraHedwig, MuffinElZangano, Durrani, Johannes Sj?lund (wulax), Stephen Challener (Redshrike). License(s): CC-BY-SA 3.0, GPL 3.0. see details at https://opengameart.org/content/lpc-character-bases; 'Thick' Male Revised Run/Climb by JaidynReiman (based on ElizaWy's LPC Revised)
@@ -36,6 +25,3 @@ Authors: bluecarrot16, Benjamin K. Smith (BenCreating), Evert, Eliza Wyatt (Eliz
 
 - legs/skirts/plain/male/black.png: by bluecarrot16, Pierre Vigier (pvigier), Johannes Sjölund (wulax). License(s): CC-BY-SA 3.0, GPL 3.0. 
     - https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
-
-Images made with COpilot (microsoft)
-

@@ -37,6 +37,7 @@ export class Preloader extends Scene
         this.load.image('logo', 'logo.png');
         this.load.image('frameui', 'frame.png');
         this.load.spritesheet('milei', 'sprite_milei.png',{ frameWidth:64, frameHeight:64 });
+        this.load.spritesheet('morcilla', 'sprite_morcilla.png',{ frameWidth:64, frameHeight:64 });
         this.load.spritesheet('superMilei', 'spriteSuperMilei.png',{ frameWidth:64, frameHeight:64 });      
         this.load.spritesheet('larreta', 'sprite_hrl.png',{ frameWidth:64, frameHeight:64 });      
         this.load.spritesheet('dialog_box', 'dialog_box.png',{ frameWidth:180, frameHeight:180 });
