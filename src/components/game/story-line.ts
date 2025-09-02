@@ -95,7 +95,9 @@ export class StoryLine extends Phaser.Scene
             scene.physics.add.collider(this.enemies, scene.wallsLayer);
             scene.physics.add.collider(this.enemies, scene.objectsLayer);
 
-            scene.physics.add.overlap(scene.milei, this.enemies, (milei, larreta)=>{
+            // Use overlap instead of collider to avoid the 5px separation between objects
+            scene.physics.add.overlap(scene.milei, this.enemies, (milei, larreta) => {
+                // Make larreta quiet (e.g., stop movement and animations)
                 if(this.sys.game.device.input.touch) {
                     const bottomY = this.cameras.main.worldView.y + this.cameras.main.height - 150;
                     this.dialogBox!.setScale(0.5, 0.5).setY(bottomY);                    
@@ -113,7 +115,7 @@ export class StoryLine extends Phaser.Scene
                     punch.play();
                     EventBus.emit('player-coins-changed', (milei as Milei).getCoins());
                    // EventBus.emit('player-punch');
-                }else{
+                }else{                    
                     //@ts-expect-error nomilei
                     if(this.dialogBox?.frame !== 2) this.dialogBox!.setFrame(2);
                     (milei as Milei).handleDamage(Math.round(Math.random() *10));
@@ -124,7 +126,6 @@ export class StoryLine extends Phaser.Scene
                         this.legend?.forEach(legend => legend.setVisible(false));
                     }, 2000);                    
                 }
-
             });
     
         }

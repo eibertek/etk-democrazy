@@ -59,7 +59,8 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 		{
 
 			this.setTint(0xff0000)
-
+			this.setVelocity(0, 0);
+			this.anims?.pause();
 			this.healthState = HealthState.DAMAGE
 			this.damageTime = 0
 		}
@@ -128,10 +129,9 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	update(cursors: Phaser.Types.Input.Keyboard.CursorKeys)
 	{
 		if(this.pause) return;
-		if (this.healthState === HealthState.DAMAGE
-			|| this.healthState === HealthState.DEAD
+		if (this.healthState === HealthState.DEAD
 		)
-		{
+		{		
 			return
 		}
 

@@ -57,7 +57,10 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 
 	damage = () => {
 		this.health-=1;
-		this.setTint(0xff0000);	
+		this.setTint(0xff0000);
+		console.log('hrl health', this.health);
+		this.setVelocity(0, 0);
+		this.anims?.pause();
 		this.scene.time.addEvent({
 			delay: 500,
 			callback: () => {
@@ -84,7 +87,7 @@ export default class Hrl extends Phaser.Physics.Arcade.Sprite
 	{
 		super.preUpdate(t, dt)
 		//@ts-expect-error wrong type
-		const speed = !this.scene.TIME_PAUSE ? 100 : 0;
+		const speed = !this.scene.TIME_PAUSE ? 80 : 0;
 
 		switch (this.direction)
 		{
