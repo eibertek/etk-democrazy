@@ -9,7 +9,7 @@ const textVariant = (size=30, color="#ffffff") => ({
 	fontFamily: 'Arial', fontSize: size, color,
 });
 
-const legends = ["Peguele presidente", 'Vamo javoooo', 'toma, alien con s**a', 'UUUHHHH'];
+const legends = ["Peguele presidente", 'Vamo javoooo', 'siguiente pregunta', 'UUUHHHH'];
 const getLegend = () => legends[Math.floor(Math.random()*legends.length)];
 
 export class StoryLine extends Phaser.Scene
@@ -20,6 +20,7 @@ export class StoryLine extends Phaser.Scene
     private currentScene?: Game;
     private npcs?: Phaser.Physics.Arcade.StaticGroup;
     private enemies?: Phaser.Physics.Arcade.Group;
+    private activeNPCs?: Phaser.Physics.Arcade.Group;
     public TIME_PAUSE: boolean = false;
     private grayOverlay?: Phaser.GameObjects.Rectangle;
     public dialogBox?: Phaser.GameObjects.Sprite;
@@ -109,7 +110,7 @@ export class StoryLine extends Phaser.Scene
                     this.legend?.forEach(legend => legend.setVisible(true));    
                 }                
                 if((milei as Milei).isAttacking) {
-                    scene.milei?.addCoins(10);
+                    scene.milei?.addCoins(100);
                     (larreta as Hrl).damage();
                     this.dialogBox!.setFrame(1);
                     punch.play();
@@ -142,6 +143,7 @@ export class StoryLine extends Phaser.Scene
         const slItemsLayer = this.currentScene!.map!.getObjectLayer('NPC');
         const slObjectivesLayer = this.currentScene!.map!.getObjectLayer('objective points');
         this.npcs = this.currentScene!.physics.add.staticGroup();
+        this.activeNPCs = this.currentScene!.physics.add.group();
 		const screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
 		const screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
 		if(this.scale.orientation.toString()==='portrait-primary') {
@@ -171,7 +173,6 @@ export class StoryLine extends Phaser.Scene
             const event = this.storyline!.events.filter(st => st.id === slObj.name).shift();
             if(event && event!.actions) {
                // event.actions(slObj.x!, slObj.y!);
-               console.log(npc, event);
                event!.actions(npc);
             }
 		});
@@ -204,8 +205,14 @@ export class StoryLine extends Phaser.Scene
                 }
                 this.activeStoryIdx = 0;
                 this.runStory();
-            });
-    
+            });    
+        }
+        try {
+            const tipito = this.activeNPCs!.create(400, 300, 'tipitodance');
+            tipito.anims.play('tipito-dancing', true);
+            console.log(tipito);            
+        } catch (error) {
+            console.log(error);
         }
     }
 

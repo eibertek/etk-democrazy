@@ -41,6 +41,7 @@ export class Preloader extends Scene
         this.load.spritesheet('superMilei', 'spriteSuperMilei.png',{ frameWidth:64, frameHeight:64 });      
         this.load.spritesheet('larreta', 'sprite_hrl.png',{ frameWidth:64, frameHeight:64 });      
         this.load.spritesheet('dialog_box', 'dialog_box.png',{ frameWidth:180, frameHeight:180 });
+        this.load.spritesheet('tipitodance', 'FUERA_MILEI2.png',{ frameWidth:64, frameHeight:64 });
 
         this.load.image({
             key: 'firstmap',
