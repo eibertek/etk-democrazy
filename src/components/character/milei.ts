@@ -14,7 +14,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	private damageTime = 0
 
 	private _health = 150
-	private _coins = 0;
+	private _coins = 5000;
     private orientation = "down";
     public isAttacking = false;
 	private pause:boolean = false;
@@ -59,7 +59,8 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 		{
 
 			this.setTint(0xff0000)
-
+			this.setVelocity(0, 0);
+			this.anims?.pause();
 			this.healthState = HealthState.DAMAGE
 			this.damageTime = 0
 		}
@@ -75,7 +76,7 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	}
 
 	addCoins = (coins:number) => {
-		this._coins+=coins;
+		this._coins-=coins;
 	}
 
 	getCoins = () => this._coins;
@@ -128,10 +129,9 @@ export default class Milei extends Phaser.Physics.Arcade.Sprite
 	update(cursors: Phaser.Types.Input.Keyboard.CursorKeys)
 	{
 		if(this.pause) return;
-		if (this.healthState === HealthState.DAMAGE
-			|| this.healthState === HealthState.DEAD
+		if (this.healthState === HealthState.DEAD
 		)
-		{
+		{		
 			return
 		}
 

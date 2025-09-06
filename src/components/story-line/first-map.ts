@@ -47,7 +47,9 @@ export const firstMapStoryLine = (scene: Scene) => ({
                     text: "Bien, creo que me pondre en marcha",
                     avatar: "dialog_box",
                     avatarNumber: 10,
-                    action: () => {},
+                    action: () => {
+                        
+                    },
                 },
                 {
                     text: "Cuidado Javo, hay varios aliens en tu camino",
@@ -75,7 +77,7 @@ export const firstMapStoryLine = (scene: Scene) => ({
                     avatarNumber: 12
                 },
                 {
-                    text: "Anulo mufa",
+                    text: "Confiamos en usted presidente",
                     avatar: "dialog_box",
                     avatarNumber: 1
                 },
@@ -125,7 +127,7 @@ export const firstMapStoryLine = (scene: Scene) => ({
                         avatarNumber: 0
                     },
                     {
-                        text: "Gracias gordo, todavia queda mas",
+                        text: "Gracias tipito, todavia queda mas",
                         avatar: "dialog_box",
                         avatarNumber: 11
                     },
